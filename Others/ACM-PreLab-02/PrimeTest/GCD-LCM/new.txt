@@ -1,0 +1,24 @@
+if (i <= y / i)
+            {
+                two = {i, y / i};
+                one = {x - (i - 1), i - 1};
+                if (one.fi <= one.se)
+                {
+                    can = true;
+                    break;
+                }
+                one = {y / i + 1, x - (y / i + 1)};
+                if (one.fi <= one.se)
+                {
+                    can = true;
+                    break;
+                }
+            }
+            else
+                break;
+        }
+        if (can)
+            cout << one.fi << " " << one.se << endl
+                 << two.fi << " " << two.se << endl;
+        else
+            cout << -1 << endl;
