@@ -22,45 +22,51 @@ using vll = vector<ll>;
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 
-void solve()
+const int N = 1e5 + 5;
+bool f[N];
+vector<int> primes;
+void sieve()
 {
 
-    ll n;
-    cin >> n;
-    vll v(n);
-    for (ll i = 0; i < n; i++)
+    f[1] = true;
+    for (int i = 2; i * i <= N; i++)
     {
-        cin >> v[i];
-    }
-    sort(all(v));
-    ll ans = v[0] * v[n - 1];
-    ll cnt = 0;
-    vll divs;
-    for (ll i = 2; i * i <= ans; i++)
-    {
-        if (ans % i == 0)
+        if (!f[i])
         {
-            divs.pb(i);
-            if (i != ans / i)
+            for (int j = i * i; j <= N; j += i)
             {
-                divs.pb(ans / i);
+                f[j] = true;
             }
         }
     }
-    sort(all(divs));
-    if (divs != v)
+    for (int i = 2; i <= N; i++)
     {
-        cout << -1 << endl;
+        if (!f[i])
+            primes.push_back(i);
     }
-    else
-        cout << ans << endl;
+    // for (auto x : primes)
+    //     cout << x << " ";
+}
+
+void solve()
+{
+    int n;
+    cin >> n;
+    for (int i = 2; i <= n; i++)
+    {
+        if (f[n + i])
+        {
+            cout << i << endl;
+            return;
+        }
+    }
 }
 
 int main()
 {
     FAST;
-
     int tt;
+    sieve();
     tt = 1;
     cin >> tt;
     //  for(int i = 1; i<=tt; i++)

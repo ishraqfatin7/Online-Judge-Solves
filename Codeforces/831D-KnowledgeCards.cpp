@@ -24,43 +24,45 @@ using vll = vector<ll>;
 
 void solve()
 {
-
-    ll n;
-    cin >> n;
-    vll v(n);
-    for (ll i = 0; i < n; i++)
+    int n, m, k;
+    cin >> n >> m >> k;
+    vll v(k + 20, 0);
+    unordered_map<ll, ll> um;
+    bool f = false;
+    ll total = m * n - 2;
+    ll x = k;
+    rep1(i, k)
     {
         cin >> v[i];
     }
-    sort(all(v));
-    ll ans = v[0] * v[n - 1];
-    ll cnt = 0;
-    vll divs;
-    for (ll i = 2; i * i <= ans; i++)
+    rep1(i, k)
     {
-        if (ans % i == 0)
+        total--;
+        um[v[i]] = 1;
+        if (!total)
         {
-            divs.pb(i);
-            if (i != ans / i)
-            {
-                divs.pb(ans / i);
-            }
+            f = true;
+        }
+        while (um[x] == 1)
+        {
+            total++;
+            x--;
         }
     }
-    sort(all(divs));
-    if (divs != v)
+    if (!f)
     {
-        cout << -1 << endl;
+        cout << "YA" << endl;
     }
     else
-        cout << ans << endl;
+        cout << "TIDAK" << endl;
+    // cout << 2 * mx - mn - f << endl;
 }
 
 int main()
 {
     FAST;
-
     int tt;
+
     tt = 1;
     cin >> tt;
     //  for(int i = 1; i<=tt; i++)

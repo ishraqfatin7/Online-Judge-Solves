@@ -24,43 +24,25 @@ using vll = vector<ll>;
 
 void solve()
 {
-
     ll n;
     cin >> n;
-    vll v(n);
-    for (ll i = 0; i < n; i++)
+    ll sum = 0, mx = INT_MIN;
+    rep(i, n)
     {
-        cin >> v[i];
+        ll x, y;
+        cin >> x >> y;
+        ll mn = min(x, y);
+        sum += mn;
+        mx = max(mx, max(x, y));
     }
-    sort(all(v));
-    ll ans = v[0] * v[n - 1];
-    ll cnt = 0;
-    vll divs;
-    for (ll i = 2; i * i <= ans; i++)
-    {
-        if (ans % i == 0)
-        {
-            divs.pb(i);
-            if (i != ans / i)
-            {
-                divs.pb(ans / i);
-            }
-        }
-    }
-    sort(all(divs));
-    if (divs != v)
-    {
-        cout << -1 << endl;
-    }
-    else
-        cout << ans << endl;
+    cout << 2 * (sum + mx) << endl;
 }
 
 int main()
 {
     FAST;
-
     int tt;
+
     tt = 1;
     cin >> tt;
     //  for(int i = 1; i<=tt; i++)

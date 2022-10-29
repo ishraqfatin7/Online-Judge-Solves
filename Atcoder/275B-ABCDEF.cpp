@@ -21,49 +21,24 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-
+const ll mod = 998244353 ; 
 void solve()
 {
-
-    ll n;
-    cin >> n;
-    vll v(n);
-    for (ll i = 0; i < n; i++)
-    {
-        cin >> v[i];
-    }
-    sort(all(v));
-    ll ans = v[0] * v[n - 1];
-    ll cnt = 0;
-    vll divs;
-    for (ll i = 2; i * i <= ans; i++)
-    {
-        if (ans % i == 0)
-        {
-            divs.pb(i);
-            if (i != ans / i)
-            {
-                divs.pb(ans / i);
-            }
-        }
-    }
-    sort(all(divs));
-    if (divs != v)
-    {
-        cout << -1 << endl;
-    }
-    else
-        cout << ans << endl;
+    ll a, b, c, d, e, f;
+    cin >> a >> b >> c >> d >> e >> f;
+    ll sum = (a % 998244353 * b % 998244353 * c % 998244353) % 998244353;
+    ll sum2 = (d % 998244353 * e % 998244353 * f % 998244353) % 998244353;
+    cout << (sum-sum2)%mod  << endl;
 }
 
 int main()
 {
     FAST;
-
     int tt;
+
     tt = 1;
-    cin >> tt;
-    //  for(int i = 1; i<=tt; i++)
+    // cin >> tt;
+    //   for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();
