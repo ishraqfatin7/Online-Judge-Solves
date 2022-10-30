@@ -22,26 +22,37 @@ using vll = vector<ll>;
 
 void solve()
 {
-
-    ll n;
+    int n;
     cin >> n;
-    ll cnt = 0;
-    while (n % 4 == 0)
+    vi v(n + 2);
+    for (int i = 1; i <= n; i++)
     {
-        cnt++;
-        n /= 4;
+        cin >> v[i];
     }
-    for (int i = 1; i * i <= n; i++)
+    vi a = v;
+   // sort(all(a));
+    vector<pii> ans;
+
+    for (int i = 2; i <= n; i++)
     {
-        ll x = n - i * i;
-        ll y = sqrt(x);
-        if (y * y == x)
+        for (int j = 1; j < i; j++)
         {
-            cout << (i << cnt) << " " << (y << cnt) << endl;
-            return;
+            if (a[j] > a[i])
+            {
+                ans.pb({j, i});
+                for (int k = i; k > j; k--)
+                {
+                    swap(a[k], a[k - 1]);
+                }
+                break;
+            }
         }
     }
-    cout << -1 << endl;
+
+    cout << ans.size() << endl;
+
+    for (auto u : ans)
+        cout << u.F << " " << u.S << " " << u.S - u.F << endl;
 }
 int main()
 {

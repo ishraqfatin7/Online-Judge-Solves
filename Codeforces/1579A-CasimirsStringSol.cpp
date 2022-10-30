@@ -22,26 +22,24 @@ using vll = vector<ll>;
 
 void solve()
 {
-
-    ll n;
-    cin >> n;
-    ll cnt = 0;
-    while (n % 4 == 0)
+    string s;
+    cin >> s;
+    int n = s.size();
+    vi v(3);
+    for (int i = 0; i < n; i++)
     {
-        cnt++;
-        n /= 4;
+        if (s[i] == 'A')
+            v[0]++;
+        else if (s[i] == 'B')
+            v[1]++;
+        else
+            v[2]++;
     }
-    for (int i = 1; i * i <= n; i++)
-    {
-        ll x = n - i * i;
-        ll y = sqrt(x);
-        if (y * y == x)
-        {
-            cout << (i << cnt) << " " << (y << cnt) << endl;
-            return;
-        }
-    }
-    cout << -1 << endl;
+    if (v[0]+v[2]==v[1])
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
+    
 }
 int main()
 {

@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll = unsigned long long;
+using ll = long long;
+using ull = unsigned long long;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
@@ -16,40 +17,54 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 
 void solve()
 {
-
-    ll n;
+    int n;
     cin >> n;
-    ll cnt = 0;
-    while (n % 4 == 0)
+    vi v(n + 1);
+    priority_queue<pii> pq;
+    for (int i = 1; i <= n; i++)
     {
-        cnt++;
-        n /= 4;
-    }
-    for (int i = 1; i * i <= n; i++)
-    {
-        ll x = n - i * i;
-        ll y = sqrt(x);
-        if (y * y == x)
+        int x;
+        cin >> v[i];
+        if (v[i] > 0)
         {
-            cout << (i << cnt) << " " << (y << cnt) << endl;
-            return;
+            pq.push({v[i], i});
         }
     }
-    cout << -1 << endl;
+    vector<pii>ans; 
+    while (pq.size() > 1)
+    {
+        pii a = pq.top();
+        pq.pop();
+        pii b = pq.top();
+        pq.pop();
+        ans.pb({a.S, b.S});
+        //cout << b.S << ' ' << a.S << endl;
+        a.F--;
+        b.F--;
+        if (a.F)
+            pq.push(a);
+        if (b.F)
+            pq.push(b);
+    }
+    cout << ans.size() << endl;
+    for (auto x : ans)
+        cout << x.F << ' ' << x.S << endl;
 }
+
 int main()
 {
     FAST;
     int tt;
+    // tt = 1;
     cin >> tt;
-
-    //   for(int i = 1; i<=tt; i++)
+    // for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

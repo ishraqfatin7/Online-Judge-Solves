@@ -22,26 +22,22 @@ using vll = vector<ll>;
 
 void solve()
 {
-
-    ll n;
+    int n;
     cin >> n;
-    ll cnt = 0;
-    while (n % 4 == 0)
+    vi a(n);
+    rep(i, n) cin >> a[i];
+    deque<int> dq;
+    dq.push_back(a[0]);
+    rep1(i, n - 1)
     {
-        cnt++;
-        n /= 4;
+        if (a[i] <= dq.front())
+            dq.push_front(a[i]);
+        else
+            dq.push_back(a[i]);
     }
-    for (int i = 1; i * i <= n; i++)
-    {
-        ll x = n - i * i;
-        ll y = sqrt(x);
-        if (y * y == x)
-        {
-            cout << (i << cnt) << " " << (y << cnt) << endl;
-            return;
-        }
-    }
-    cout << -1 << endl;
+    for (auto x : dq)
+        cout << x << ' ';
+    cout << endl;
 }
 int main()
 {
