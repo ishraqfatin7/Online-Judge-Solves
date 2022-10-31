@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-using ull = unsigned long long;
+using ll =  long long;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
@@ -21,62 +20,34 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-const int N = 100;
-bool f[N];
-int nod[N];
-int sod[N];
-
-vector<vector<int>> divs(N, vector<int>());
-void sieve()
-{
-    f[1] = true;
-    for (int i = 4; i <= N; i += 2)
-    {
-        f[i] = true;
-    }
-    for (int i = 3; i * i <= N; i += 2)
-    {
-        if (!f[i])
-        {
-            for (int j = i * i; j <= N; j += 2 * i)
-            {
-                f[j] = true;
-            }
-        }
-    }
-}
-
-void sodNodiv()
-{
-    int cnt = 0;
-
-    for (int i = 2; i <= N; i++)
-    {
-        for (int j = i; j <= N; j += i)
-        {
-            nod[j]++;
-            sod[j] += i;
-            divs[j].pb(i);
-            cnt++;
-        }
-    }
-
-    cout << cnt << endl;
-}
 
 void solve()
 {
-    // sieve();
-    sodNodiv();
+    ll a, b, c;
+    cin >> a >> b >> c;
+    if ((a + c) % (2 * b) == 0)
+    {
+        cout << "YES" << endl;
+    }
+    else if ((2 * b - a) > 0 && (2 * b - a) % c == 0)
+    {
+        cout << "YES" << endl;
+    }
+    else if ((2 * b - c) > 0 && (2 * b - c) % a == 0)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
-
 int main()
 {
     FAST;
     int tt;
+    cin >> tt;
 
-    tt = 1;
-    // cin >> tt;
     //   for(int i = 1; i<=tt; i++)
     while (tt--)
     {

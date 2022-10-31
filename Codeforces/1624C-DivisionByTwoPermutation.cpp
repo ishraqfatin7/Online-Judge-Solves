@@ -1,7 +1,7 @@
+
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-using ull = unsigned long long;
+using ll = unsigned long long;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
@@ -17,66 +17,48 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
-#define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-const int N = 100;
-bool f[N];
-int nod[N];
-int sod[N];
-
-vector<vector<int>> divs(N, vector<int>());
-void sieve()
-{
-    f[1] = true;
-    for (int i = 4; i <= N; i += 2)
-    {
-        f[i] = true;
-    }
-    for (int i = 3; i * i <= N; i += 2)
-    {
-        if (!f[i])
-        {
-            for (int j = i * i; j <= N; j += 2 * i)
-            {
-                f[j] = true;
-            }
-        }
-    }
-}
-
-void sodNodiv()
-{
-    int cnt = 0;
-
-    for (int i = 2; i <= N; i++)
-    {
-        for (int j = i; j <= N; j += i)
-        {
-            nod[j]++;
-            sod[j] += i;
-            divs[j].pb(i);
-            cnt++;
-        }
-    }
-
-    cout << cnt << endl;
-}
 
 void solve()
 {
-    // sieve();
-    sodNodiv();
+    int n;
+    cin >> n;
+    unordered_map<int, int> m;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        while(x>n){
+            x/=2;
+        }
+        m[x]++;
+    }
+    for (int i = n; i >= 1; i--)
+    {
+        while(m[i]>1){
+            m[i/2]++; 
+            m[i]--;
+        }
+    }
+    bool f = true; 
+    for (int i = 1; i <= n; i++)
+    {
+        if(m[i]!=1){
+            f = false;
+            break;
+        }
+    }
+    f? cout << "YES" << endl : cout << "NO" << endl;
 }
-
 int main()
 {
     FAST;
-    int tt;
 
-    tt = 1;
-    // cin >> tt;
+    int tt;
+    cin >> tt;
+
     //   for(int i = 1; i<=tt; i++)
     while (tt--)
     {
