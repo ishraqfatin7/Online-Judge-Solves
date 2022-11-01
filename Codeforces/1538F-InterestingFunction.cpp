@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll =  long long;
+using ll = long long;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
@@ -22,24 +22,16 @@ using vll = vector<ll>;
 
 void solve()
 {
-    string s;
-    cin >> s;
-    int n = s.size();
-    vi v(3);
-    for (int i = 0; i < n; i++)
+    int l, r;
+    cin >> l >> r;
+    int ans = 0;
+    while (l != 0 || r != 0)
     {
-        if (s[i] == 'A')
-            v[0]++;
-        else if (s[i] == 'B')
-            v[1]++;
-        else
-            v[2]++;
+        ans += r - l;
+        l /= 10;
+        r /= 10;
     }
-    if (v[0]+v[2]==v[1])
-        cout << "YES" << endl;
-    else
-        cout << "NO" << endl;
-    
+    cout << ans << endl;
 }
 int main()
 {

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll =  long long;
+using ll = long long;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
@@ -20,26 +20,40 @@ using vll = vector<ll>;
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 
+int countSPF(int x){
+    int cnt = 0; 
+    for(int i =2 ; i*i<=x;i++){
+        while(x%i==0){
+            x/=i;
+            cnt++;
+        }
+    }
+    if(x>1) cnt++;
+    return cnt; 
+}
+
 void solve()
 {
-    string s;
-    cin >> s;
-    int n = s.size();
-    vi v(3);
-    for (int i = 0; i < n; i++)
-    {
-        if (s[i] == 'A')
-            v[0]++;
-        else if (s[i] == 'B')
-            v[1]++;
-        else
-            v[2]++;
-    }
-    if (v[0]+v[2]==v[1])
-        cout << "YES" << endl;
-    else
+    ll a, b, k;
+    cin >> a >> b >> k;
+    int spfa = countSPF(a);
+    int spfb = countSPF(b);
+    if(k>spfa+spfb){
         cout << "NO" << endl;
-    
+        return;
+    }
+    if(k>1){
+        cout << "YES" << endl;
+        return; 
+    }
+    if (((a % b == 0) or (b % a == 0)) and (a - b))
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 int main()
 {
