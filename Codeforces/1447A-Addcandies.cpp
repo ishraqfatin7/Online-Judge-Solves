@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -21,45 +22,21 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-const int n = 1e6 + 9;
-vector<int> phi(n + 1, 0);
-
-void phi_1_to_N()
-{
-    phi[0] = 0;
-    phi[1] = 1;
-    for (int i = 2; i <= n; i++)
-        phi[i] = i;
-    for (int i = 2; i <= n; i++)
-    {
-        if (phi[i] == i)
-        {
-            for (int j = i; j <= n; j += i)
-            {
-                phi[j] -= phi[j] / i;
-            }
-        }
-        phi[i] = phi[i - 1] + phi[i];
-    }
-}
 
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    if(n%k==0){
-        cout << phi[n/k-1] << endl;
-    }
-    else{
-        cout << phi[n/k+1] << endl;
-    }
+    int n;
+    cin >> n;
+    cout << n << endl;
+    for (int i = 1; i <= n; i++)
+        cout << i << " ";
+    cout << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    phi_1_to_N();
     tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)

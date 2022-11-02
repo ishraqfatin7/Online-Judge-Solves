@@ -21,37 +21,39 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-const int n = 1e6 + 9;
-vector<int> phi(n + 1, 0);
-
-void phi_1_to_N()
-{
-    phi[0] = 0;
-    phi[1] = 1;
-    for (int i = 2; i <= n; i++)
-        phi[i] = i;
-    for (int i = 2; i <= n; i++)
-    {
-        if (phi[i] == i)
-        {
-            for (int j = i; j <= n; j += i)
-            {
-                phi[j] -= phi[j] / i;
-            }
-        }
-        phi[i] = phi[i - 1] + phi[i];
-    }
-}
 
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    if(n%k==0){
-        cout << phi[n/k-1] << endl;
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    stack<char> st;
+    st.push(s[0]);
+    for (int i = 1; i < n; i++)
+    {
+        if (st.top() == s[i])
+        {
+            st.pop();
+            st.push('0');
+        }
+        else
+            st.push(s[i]);
     }
-    else{
-        cout << phi[n/k+1] << endl;
+    if (st.size() == 1)
+        cout << "YES" << endl;
+    else
+    {
+        char x = st.top();
+        st.pop();
+        while (!st.empty() && st.top() == x)
+        {
+            st.pop();
+        }
+        if (st.empty())
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
     }
 }
 
@@ -59,7 +61,6 @@ int main()
 {
     FAST;
     int tt;
-    phi_1_to_N();
     tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
