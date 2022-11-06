@@ -21,50 +21,58 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-const ll n = 1e6 + 9;
-vector<ll> phi(n + 1, 0);
-vector<ll> divs(n + 1, 0);
+
+const int N = 1e6 + 9;
+vector<int> phi(N + 1, 0);
+vector<ll> ans(N + 1, 0);
+vector<ll>sum(N + 1, 0);
 void phi_1_to_N()
 {
     phi[0] = 0;
     phi[1] = 1;
-    for (ll i = 2; i <= n; i++)
+    for (int i = 2; i <= N; i++)
         phi[i] = i;
-    for (ll i = 2; i <= n; i++)
+    for (int i = 2; i <= N; i++)
     {
         if (phi[i] == i)
         {
-            for (ll j = i; j <= n; j += i)
+            for (int j = i; j <= N; j += i)
             {
                 phi[j] -= phi[j] / i;
             }
         }
-        // phi[i]+=phi[i-1];
     }
-    for (ll i = 1; i <= n; i++)
+    for (int i = 1; i <= N; i++)
     {
-        for (ll j = i; j <= n; j += i)
+        for (int j = i; j <= N; j += i)
         {
-            divs[j] += (i * phi[i]);
+            ans[j]+=phi[j/i]*i;
         }
     }
-}
+    for (int i = 1; i <= N; i++)
+    {
+        ans[i]+=ans[i-1]-i;
+    }
 
+}
 void solve()
-{   ll x; 
-    cin >> x;
-    ll ans = ((divs[x] + 1) * x) / 2;
-     cout << ans << endl;
+{
+    int x;
+    while (cin >> x and x)
+    {
+        cout << ans[x] << endl;
+    }
 }
 
 int main()
 {
     FAST;
-    int tt;
     phi_1_to_N();
+    int tt;
+
     tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

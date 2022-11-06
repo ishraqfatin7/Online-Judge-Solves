@@ -21,50 +21,59 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-const ll n = 1e6 + 9;
-vector<ll> phi(n + 1, 0);
-vector<ll> divs(n + 1, 0);
-void phi_1_to_N()
+const int N = 1e6 + 9;
+vector<pii> graph[N];
+bool vis[N];
+int mn = 1e9;
+
+//ei problem korte mela kichu par kore asha lagbe
+void dfs(int u)
 {
-    phi[0] = 0;
-    phi[1] = 1;
-    for (ll i = 2; i <= n; i++)
-        phi[i] = i;
-    for (ll i = 2; i <= n; i++)
+    vis[u] = true;
+    cout << u << " ";
+    for (auto v : graph[u])
     {
-        if (phi[i] == i)
-        {
-            for (ll j = i; j <= n; j += i)
-            {
-                phi[j] -= phi[j] / i;
-            }
-        }
-        // phi[i]+=phi[i-1];
+        if (vis[v.F])
+            continue;
+        mn = min(mn, v.S);
+        dfs(v.F);
     }
-    for (ll i = 1; i <= n; i++)
-    {
-        for (ll j = i; j <= n; j += i)
-        {
-            divs[j] += (i * phi[i]);
-        }
-    }
+    // for (auto v : graph[u])
+    // {
+    //     if (!vis[v.F])
+    //     {
+    //         vis[v.F] = true;
+    //         dfs(v.F);
+    //     }
+    // }
 }
 
 void solve()
-{   ll x; 
-    cin >> x;
-    ll ans = ((divs[x] + 1) * x) / 2;
-     cout << ans << endl;
+{
+    int n, m;
+    cin >> n >> m;
+    rep(i, m)
+    {
+        int u, v, w;
+        cin >> u >> v >> w;
+        graph[u].pb({v, w});
+        graph[v].pb({u, w});
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+    }
+
+    dfs(1);
 }
 
 int main()
 {
     FAST;
     int tt;
-    phi_1_to_N();
     tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

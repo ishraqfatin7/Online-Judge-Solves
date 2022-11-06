@@ -21,50 +21,25 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-const ll n = 1e6 + 9;
-vector<ll> phi(n + 1, 0);
-vector<ll> divs(n + 1, 0);
-void phi_1_to_N()
-{
-    phi[0] = 0;
-    phi[1] = 1;
-    for (ll i = 2; i <= n; i++)
-        phi[i] = i;
-    for (ll i = 2; i <= n; i++)
-    {
-        if (phi[i] == i)
-        {
-            for (ll j = i; j <= n; j += i)
-            {
-                phi[j] -= phi[j] / i;
-            }
-        }
-        // phi[i]+=phi[i-1];
-    }
-    for (ll i = 1; i <= n; i++)
-    {
-        for (ll j = i; j <= n; j += i)
-        {
-            divs[j] += (i * phi[i]);
-        }
-    }
-}
 
 void solve()
-{   ll x; 
-    cin >> x;
-    ll ans = ((divs[x] + 1) * x) / 2;
-     cout << ans << endl;
+{
+   ll n; cin >>n; 
+   ll sum = 0;
+    rep(i,n){
+         ll x; cin >> x;
+         sum += x;
+    }
+    cout << abs (sum) << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    phi_1_to_N();
     tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+     cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();
