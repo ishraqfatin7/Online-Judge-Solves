@@ -23,7 +23,8 @@ const ll MOD = 1e9 + 7;
 const ll INF = 1e9;
 
 int n, m;
-vector<int> adj[MAX_N], dist;
+vector<int> adj[MAX_N], dist;;
+int color[250]; 
 bool vis[MAX_N];
 void bfs(int s){
     dist.assign(n+1,-1); 

@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 const int N = 210;
 
@@ -30,14 +30,14 @@ bool dfs(int u)
 int main()
 {
     int u, v;
-    while (cin>> n and n)
+    while (cin >> n and n)
     {
-        cin >>m;
+        cin >> m;
         memset(vis, 0, sizeof(vis));
         memset(edge, 0, sizeof(edge));
         for (int i = 0; i < m; i++)
         {
-            cin >>u >>v; 
+            cin >> u >> v;
             edge[u][v] = 1;
             edge[v][u] = 1;
         }
