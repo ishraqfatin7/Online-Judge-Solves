@@ -21,51 +21,64 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
+int dx[] = {1, 1, 0, -1, -1, -1, 0, 1}, dy[] = {0, 1, 1, 1, 0, -1, -1, -1};
 
 void solve()
 {
-    deque<char> dq;
-    string s;
-    cin >> s;
-    int n = s.size();
-    char mx = 'a';
-    for (int i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    vll v(n);
+    set<int> s;
+    rep(i, n)
     {
-        mx = max(mx, s[i]);
-        dq.pb(s[i]);
+        cin >> v[i];
     }
-    for (char c = mx; c >= 'a'; c--)
+    
+    if (v[0] == v[n - 1])
     {
-        if (!dq.size())
-        {
-            cout << "NO" << endl;
-            return;
-        }
-        if (dq.front() == c)
-        {
-            dq.pop_front();
-        }
-        else if (dq.back() == c)
-        {
-            dq.pop_back();
-        }
-        else
-        {
-            cout << "NO" << endl;
-            return;
-        }
+        cout << "YES" << endl;
+        return;
+    }
+    else if (v[0] == v[n - 2])
+    {
+        cout << "YES" << endl;
+        return;
+    }
+    else if (v[1] == v[n - 1])
+    {
+        cout << "YES" << endl;
+        return;
+    }
+    if (n <= 2)
+    {
+        cout << "YES" << endl;
+        return; 
     }
 
-    !dq.size() ? cout << "YES" << endl : cout << "NO" << endl;
+    else
+    {
+        int f = v[0];
+        for (int i = 1; i <= n - 3; i++)
+        {
+            if (v[i] == f)
+            {
+                if (v[n - 1] == v[i + 1])
+                {
+                    cout << "YES" << endl;
+                    return;
+                }
+            }
+        }
+    }
+    cout << "NO" << endl;
 }
-
 int main()
 {
     FAST;
     int tt;
     tt = 1;
     cin >> tt;
-    //   for(int i = 1; i<=tt; i++)
+    //    for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();
