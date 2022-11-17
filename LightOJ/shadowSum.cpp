@@ -30,9 +30,9 @@ void solve(int tt)
         }
     }
     int sum = 0;
-    for (auto it = s.begin(); it != s.end(); it++)
+    for (auto x : s)
     {
-        sum += *it;
+        sum += x;
     }
     cout << "Case " << tt << ": ";
     cout << sum << endl;
