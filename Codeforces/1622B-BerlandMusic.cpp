@@ -26,32 +26,29 @@ int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+    int n;
+    cin >> n;
+    vi a(n + 1), ans(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    string s;
+    cin >> s;
+    vector<int> v, u;
+    for (int i = 0; i < s.size(); i++)
     {
-        if (x & 1)
-        {
-            cout << x * x - y + 1;
-        }
+        if (s[i] == '0')
+            v.push_back(a[i + 1]);
         else
-        {
-            x--;
-            cout << x * x + y;
-        }
+            u.push_back(a[i + 1]);
     }
-    else
-    {
-        if (y % 2 == 0)
-        {
-            cout << y * y - x + 1;
-        }
-        else
-        {
-            y--;
-            cout << y * y + x;
-        }
-    }
+    sort(v.begin(), v.end());
+    for (int i = 0; i < v.size(); i++)
+        ans[v[i]] = i + 1;
+    sort(u.begin(), u.end());
+    for (int i = 0; i < u.size(); i++)
+        ans[u[i]] = i + 1 + (int)v.size();
+    for (int i = 1; i <= n; i++)
+        cout << ans[a[i]] << " ";
     cout << endl;
 }
 

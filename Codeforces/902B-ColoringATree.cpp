@@ -17,51 +17,58 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define CLEAR(a, x) memset(a, x, sizeof(a));
 #define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int N = 1e5 + 1;
+vi adj[N];
+int color[N];
+int cnt = 0;
 
+void dfs(int u, int col)
+{
+    if (color[col] != color[u])
+    {
+        cnt++;
+    }
+    for (auto v : adj[u])
+    {
+        if (col != v)
+        {
+            dfs(v, u);
+        }
+    }
+}
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+    int n;
+    cin >> n;
+    rep(i, n - 1)
     {
-        if (x & 1)
-        {
-            cout << x * x - y + 1;
-        }
-        else
-        {
-            x--;
-            cout << x * x + y;
-        }
+        int u;
+        cin >> u;
+        adj[u].pb(i + 2);
+        adj[i + 2].pb(u);
     }
-    else
+    for (int i = 1; i <= n; i++)
     {
-        if (y % 2 == 0)
-        {
-            cout << y * y - x + 1;
-        }
-        else
-        {
-            y--;
-            cout << y * y + x;
-        }
+        cin >> color[i];
     }
-    cout << endl;
+    dfs(1, 0);
+    cout << cnt << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

@@ -17,50 +17,77 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define CLEAR(a, x) memset(a, x, sizeof(a));
 #define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
+const int N = 1e5 + 9;
+vi adj[N];
+bool vis[N];
+bool color[N];
+bool ok = true;
+void dfs(int u)
+{
+    vis[u] = 1;
+    for (auto v : adj[u])
+    {
+        if (!vis[v])
+        {
+            color[v] = color[u] ^ 1;
+            dfs(v);
+        }
+        else
+        {
+            if (color[u] == color[v])
+            {
+                ok = false;
+            }
+        }
+    }
+}
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+
+    int n;
+    while (cin >> n and n)
     {
-        if (x & 1)
+        CLEAR(vis, 0);
+        CLEAR(color, 0);
+        for (int i = 0; i < n; i++)
         {
-            cout << x * x - y + 1;
+            adj[i].clear();
+        }
+        int e;
+        cin >> e;
+        for (int i = 0; i < e; i++)
+        {
+            int u, v;
+            cin >> u >> v;
+            adj[u].pb(v);
+            adj[v].pb(u);
+        }
+        ok = true;
+        dfs(0);
+        if (ok)
+        {
+            cout << "BICOLORABLE." << endl;
         }
         else
         {
-            x--;
-            cout << x * x + y;
+            cout << "NOT BICOLORABLE." << endl;
         }
     }
-    else
-    {
-        if (y % 2 == 0)
-        {
-            cout << y * y - x + 1;
-        }
-        else
-        {
-            y--;
-            cout << y * y + x;
-        }
-    }
-    cout << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tt = 1;
-    cin >> tt;
+    tt = 1;
+    // cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

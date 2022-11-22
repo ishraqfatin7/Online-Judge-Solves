@@ -17,51 +17,59 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define CLEAR(a, x) memset(a, x, sizeof(a));
 #define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int N = 5e4 + 9;
+vi adj[N];
+bool vis[N];
+
+void dfs(int u)
+{
+    vis[u] = 1;
+    for (auto v : adj[u])
+    {
+        if (!vis[v])
+        {
+            dfs(v);
+        }
+    }
+}
 
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+    int n, m;
+    cin >> n >> m;
+    rep(i, n)
     {
-        if (x & 1)
+        int u, v;
+        cin >> u >> v;
+        adj[u].pb(v);
+        adj[v].pb(u);
+    }
+    int cnt = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if (!vis[i])
         {
-            cout << x * x - y + 1;
-        }
-        else
-        {
-            x--;
-            cout << x * x + y;
+            dfs(i);
+            cnt++;
         }
     }
-    else
-    {
-        if (y % 2 == 0)
-        {
-            cout << y * y - x + 1;
-        }
-        else
-        {
-            y--;
-            cout << y * y + x;
-        }
-    }
-    cout << endl;
+    cout << cnt-1 << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

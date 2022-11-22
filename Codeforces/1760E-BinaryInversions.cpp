@@ -17,6 +17,7 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define CLEAR(a, x) memset(a, x, sizeof(a));
 #define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
@@ -26,33 +27,69 @@ int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+    int n;
+    cin >> n;
+    vll v(n);
+    rep(i, n)
     {
-        if (x & 1)
+        cin >> v[i];
+    }
+    ll x = 0;
+    ll cnt = 0;
+    ll ans[3] = {0};
+    rep(i, n)
+    {
+        if (v[i] == 0)
         {
-            cout << x * x - y + 1;
+            ans[0] += x;
         }
         else
+            x++;
+    }
+    ll pos = -1;
+    rep(i, n)
+    {
+        if (v[i] == 0)
         {
-            x--;
-            cout << x * x + y;
+            v[i] = 1;
+            pos = i;
+            break;
         }
     }
-    else
+    x = 0;
+    rep(i, n)
     {
-        if (y % 2 == 0)
+        if (v[i] == 0)
         {
-            cout << y * y - x + 1;
+            ans[1] += x;
         }
         else
+            x++;
+    }
+    if(pos!=-1){
+        v[pos] = 0; 
+    }
+    rrep(i, n)
+    {
+        if (v[i] == 1)
         {
-            y--;
-            cout << y * y + x;
+            pos = i;
+            break;
         }
     }
-    cout << endl;
+    v[pos] = 0;
+    x = 0;
+    rep(i, n)
+    {
+        if (v[i] == 0)
+        {
+            ans[2] += x;
+        }
+        else
+            x++;
+    }
+    sort(ans, ans + 3);
+    cout << ans[2] << endl;
 }
 
 int main()

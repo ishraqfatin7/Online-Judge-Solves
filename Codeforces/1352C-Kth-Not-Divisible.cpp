@@ -17,6 +17,7 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define clear(a, x) memset(a, x, sizeof(a));
 #define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
@@ -26,33 +27,23 @@ int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+    ll n, k;
+    cin >> n >> k;
+    ll l = 1, r = 1e12, ans;
+    while (l <= r)
     {
-        if (x & 1)
+        ll mid = (l + r) / 2;
+        if (mid - mid / n < k)
         {
-            cout << x * x - y + 1;
+            l = mid + 1;
         }
         else
         {
-            x--;
-            cout << x * x + y;
+            r = mid - 1;
+            ans = mid;
         }
     }
-    else
-    {
-        if (y % 2 == 0)
-        {
-            cout << y * y - x + 1;
-        }
-        else
-        {
-            y--;
-            cout << y * y + x;
-        }
-    }
-    cout << endl;
+    cout << ans << endl;
 }
 
 int main()

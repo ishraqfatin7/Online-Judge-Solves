@@ -21,47 +21,36 @@ using vll = vector<ll>;
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-int dx[] = {1, 0, -1, 0};
-int dy[] = {0, 1, 0, -1};
+// int dx[] = {1, 1, 0, -1, -1, -1, 0, 1}, dy[] = {0, 1, 1, 1, 0, -1, -1, -1};
+// int dx[] = {0, 0, -1, +1};
+// int dy[] = {+1, -1, 0, 0};
+int dx[] = {1, -1, 1, -1, 2, 2, -2, -2};
+int dy[] = {2, 2, -2, -2, 1, -1, 1, -1};
 
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+    string s1;
+    cin >> s1;
+    int p = -1;
+    string s2 = "";
+    for (int i = 0; i < 18; i++)
     {
-        if (x & 1)
-        {
-            cout << x * x - y + 1;
-        }
-        else
-        {
-            x--;
-            cout << x * x + y;
-        }
+        s2 += "Yes";
     }
+    if ((p = s2.find(s1, 0)) == string::npos)
+        cout << "NO" << endl;
     else
-    {
-        if (y % 2 == 0)
-        {
-            cout << y * y - x + 1;
-        }
-        else
-        {
-            y--;
-            cout << y * y + x;
-        }
-    }
-    cout << endl;
+        cout << "YES" << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tt = 1;
+    tt = 1;
     cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    //      for(int i = 1; i<=tt; i++)
+    //  cin.ignore();
     while (tt--)
     {
         solve();

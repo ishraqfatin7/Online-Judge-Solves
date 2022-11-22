@@ -23,45 +23,45 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+string s;
+const int N = 1e6 + 9;
+vi v(N + 1);
+bool vis[N+1]; 
+int cnt = 0;
 
 void solve()
 {
-    ll y, x;
-    cin >> y >> x;
-    if (x > y)
+    int n;
+    cin >> n;
+    cin >> s;
+
+    for (int i = 0; i < n; i++)
+        cin >> v[i];
+
+    while (cnt >= 0 && cnt < n)
     {
-        if (x & 1)
+        if (vis[cnt])
         {
-            cout << x * x - y + 1;
+            cout << "INFINITE" << endl;
+            return;
         }
-        else
+        vis[cnt] = 1;
+        if (s[cnt] == '<')
         {
-            x--;
-            cout << x * x + y;
+            cnt-=v[cnt]; 
         }
+        else cnt+=v[cnt]; 
     }
-    else
-    {
-        if (y % 2 == 0)
-        {
-            cout << y * y - x + 1;
-        }
-        else
-        {
-            y--;
-            cout << y * y + x;
-        }
-    }
-    cout << endl;
+    cout <<"FINITE"<<endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();
