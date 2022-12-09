@@ -25,45 +25,40 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    int n;
+    while (cin >> n and n)
     {
-        q.push(s[i]);
-    }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        map<vi, int> m;
+
+        rep(i, n)
         {
-            q.pop();
-            continue;
+            vi v;
+            rep(i, 5)
+            {
+                int x;
+                cin >> x;
+                v.pb(x);
+            }
+            sort(all(v));
+            m[v]++;
         }
-        else if (q.si)
-        cout << x;
+        int mx = INT_MIN;
+        int cnt = 0;
+        for (auto x : m)
+        {
+            mx = max(mx, x.second);
+        }
+        for (auto x : m)
+        {
+            if (x.S == mx)
+            {
+                cnt += x.S;
+            }
+        }
+        cout << cnt << endl;
+        m.clear();
     }
 }
 

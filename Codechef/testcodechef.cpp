@@ -20,14 +20,10 @@ using ll = long long;
 
 void solve()
 {
-    ll n, m, a, b;
-    cin >> n >> m >> a >> b;
-    ll x = n+ m - 2 + a;
-    ll y = a+b; 
-    if (x&1 && !(y&1))
-        cout << "No" << endl;
-    else
-        cout <<"Yes"<<endl;
+    int n, m;
+    cin >> n >> m;
+    int ans = (int((n + 1) / 2) * int((m + 1) / 2));
+    cout << ans << endl;
 }
 
 int main()

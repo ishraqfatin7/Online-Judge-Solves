@@ -1,88 +1,100 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
+using ll = long long;
+using ull = unsigned long long;
+using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vll = vector<ll>;
+#define F first
+#define S second
+#define pb push_back
+#define mp make_pair
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define rep1(i, n) for (int i = 1; i <= (n); i++)
+#define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
+#define rrep1(i, n) for (int i = (n); i > 0; i--)
+#define all_bit(x) __builtin_popcount(x)
+#define CLEAR(a, x) memset(a, x, sizeof(a));
+#define endl '\n'
+#define FAST                          \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(0);
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, 1, 0, -1};
 
-pair<int, int> p[100];
-void heapify(int arr[], int n, int i)
+bool checkLower(char x)
 {
-    int largest = i;
-    int l = 2 * i + 1;
-    int r = 2 * i + 2;
-
-    // If left child is larger than root
-    if (l < n && p[arr[l]].first > arr[largest])
-        largest = l;
-
-    // If right child largest
-    if (r < n && arr[r] > arr[largest])
-        largest = r;
-
-    // If root is nor largest
-    if (largest != i)
-    {
-        swap(arr[i], arr[largest]);
-
-        // Recursively heapifying the sub-tree
-        heapify(arr, n, largest);
-    }
+    return x >= 'a' && x <= 'z';
 }
-void heapSort(int arr[], int n)
+bool checkUpper(char x)
 {
-
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
-
-    // One by one extract an element from heap
-    for (int i = n - 1; i >= 0; i--)
-    {
-        // Moving current root to end
-        swap(arr[0], arr[i]);
-
-        // Calling max heapify on the reduced heap
-        heapify(arr, i, 0);
-    }
+    return x >= 'A' && x <= 'Z';
 }
-void display(int arr[], int n)
+
+void solve()
 {
-    for (int i = 0; i < n; i++)
+    string s;
+    unordered_map<string, int> cnt;
+    priority_queue<pair<int, string>> pqs;
+    priority_queue<pair<int, string>> pql;
+  
+    while (cin >> s)
     {
-        cout << arr[i] << "\t";
+        for (int i = 0, len = s.size(); i < len; i++)
+        {
+            if (ispunct(s[i]))
+            {
+                s.erase(i--, 1);
+                len = s.size();
+            }
+        }
+        if (!cnt[s])
+        {
+            string k = s;
+            string u = s;
+            transform(k.begin(), k.end(), k.begin(), ::tolower);
+            transform(u.begin(), u.end(), u.begin(), ::toupper);
+            if (!cnt[k] && !cnt[u])
+            {
+                cnt[s]++;
+            }
+            else
+            {
+                if (cnt[k])
+                {
+                    cnt[k]++;
+                }
+                else
+                    cnt[u]++;
+            }
+        }
+        else
+        {
+            cnt[s]++;
+        }
+        int sz = s.size();
+        pqs.push({sz * -1, s});
+        pql.push({sz, s});
     }
-    cout << "\n";
+    pair<string, int> p = *max_element(cnt.begin(), cnt.end(), [](const std::pair<string, int> &a, const std::pair<string, int> &b) -> bool
+                                       { return a.second < b.second; });
+    cout << pql.top().second<<endl;
+    cout << pqs.top().second<<endl;
+    cout << p.first <<endl;
 }
+
 int main()
 {
-
-    // int arr[] = {0, 1, 14, 3, 7, 0};
-    // for (int i = 1; i <= 5; i++)
-    // {
-    //     if (2 * i + 1 <= 5)
-    //     {
-    //         p[arr[i]].first = arr[2 * i];
-    //         p[arr[i]].second = arr[2 * i + 1];
-    //     }
-    // }
-    // for (int i = 1; i <= 5; i++)
-    // {
-    //     cout << " " << p[arr[i]].first << " " << p[arr[i]].second << endl;
-    // }
-    int arr[] = {10, 20, 30, 40, 50};
-
-    int n = sizeof(arr) / sizeof(arr[0]);
-    for (int i = 0; i < n / 2 + 1; i++)
+    FAST;
+    int tt;
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
+    while (tt--)
     {
-        p[arr[i]].first = arr[2 * i];
-        p[arr[i]].second = arr[2 * i + 1];
+        solve();
     }
-    for (int i = 0; i < n / 2 + 1; i++)
-    {
-        cout << p[arr[i]].first << " " << p[arr[i]].second << endl;
-    }
-    // cout << "Unsorted array  \n";
-    // display(arr, n);
-
-    // heapSort(arr, n);
-
-    // cout << "Sorted array  \n";
-    // display(arr, n);
 }

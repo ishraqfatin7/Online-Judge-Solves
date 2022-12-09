@@ -24,47 +24,30 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
+const int N = 3e5+9; 
+int v[N];
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    ll i, j, k, n, m;
+    cin >> n >> k;
+    for (i = 1; i <= n; i++)
+        cin >> v[i];
+    sort(v + 1, v + n + 1);
+    ll l = 1, r = 2e9 + 100, ans = v[n / 2 + 1];
+    while (l <= r)
     {
-        q.push(s[i]);
+        ll mid = (l + r) / 2;
+        ll sum = 0;
+        for (i = n / 2 + 1; i <= n; i++)
+            if (v[i] < mid)
+                sum += mid - v[i];
+        if (sum <= k)
+            ans = mid, l = mid + 1;
+        else
+            r = mid - 1;
     }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
-        {
-            q.pop();
-            continue;
-        }
-        else if (q.si)
-        cout << x;
-    }
+    cout << ans << endl;
+    
 }
 
 int main()
@@ -73,7 +56,7 @@ int main()
     int tt;
     tt = 1;
     // cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

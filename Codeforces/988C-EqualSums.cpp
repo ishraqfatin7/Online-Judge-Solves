@@ -24,55 +24,42 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
+const int N = 2e5+9; 
+ll a[N]; 
+map<ll,pll>mx; 
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    ll i, j, k, n, m;
+    
+    cin >> n;
+    for (i = 1; i <= n; i++)
     {
-        q.push(s[i]);
-    }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        cin >> m;
+        ll sum = 0;
+        for (j = 1; j <= m; j++)
+            cin >> a[j], sum += a[j];
+        for (j = 1; j <= m; j++)
         {
-            q.pop();
-            continue;
+            if (mx.find(sum - a[j]) != mx.end() && mx[sum - a[j]].F != i)
+            {
+                cout << "YES\n";
+                cout << mx[sum - a[j]].F << ' ' << mx[sum - a[j]].S << endl;
+                cout << i << ' ' << j << endl;
+                return ;
+            }
+            else
+                mx[sum - a[j]] = {i, j};
         }
-        else if (q.si)
-        cout << x;
     }
+    cout << "NO\n";
 }
 
 int main()
 {
     FAST;
     int tt;
-    tt = 1;
-    // cin >> tt;
+     tt = 1;
+    //cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

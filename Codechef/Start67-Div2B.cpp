@@ -24,55 +24,50 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int N = 1e5 + 9;
+vector<int> adj[N], dist;
 
-bool check(int x, vi vis)
+void bfs(int s)
 {
-    if (x == 0)
+    dist.assign(N + 1, -1);
+    queue<int> q;
+    dist[s] = 0;
+    q.push(s);
+    while (q.size())
     {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
+        int u = q.front();
+        q.pop();
+        for (int v : adj[u])
         {
-            return false;
+            if (dist[v] == -1)
+            {
+                dist[v] = dist[u] + 1;
+                q.push(v);
+            }
         }
-        x /= 10;
     }
-    return true;
 }
 
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
-    {
-        q.push(s[i]);
-    }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
-        {
-            q.pop();
-            continue;
-        }
-        else if (q.si)
-        cout << x;
-    }
+    int n;
+    cin >> n;
+    int x1, y1, x2, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
+    int top = min(x1, n - x1 + 1);
+    int left = min(y1, n - y1 + 1);
+    int right = min(x2, n - x2 + 1);
+    int bottom = min(y2, n - y2 + 1);
+    int total = abs(x2 - x1) + abs(y2 - y1);
+    cout << min(total, min(right, bottom) + min(top, left)) << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    tt = 1;
-    // cin >> tt;
+    // tt = 1;
+    cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

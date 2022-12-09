@@ -25,46 +25,27 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-bool check(int x, vi vis)
+ll LCM(ll a, ll b)
 {
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
+    return a * b / __gcd(a, b);
 }
 
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    ll n;
+    cin >> n;
+    ll x = 0;
+    ll mx = 1;
+
+    for (int i = 2; i * i <= n; i++)
     {
-        q.push(s[i]);
-    }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        if (n % i == 0)
         {
-            q.pop();
-            continue;
+            mx = max(n / i, mx);
         }
-        else if (q.si)
-        cout << x;
+       
     }
+    cout << mx << " " << n - mx << endl;
 }
 
 int main()
@@ -72,8 +53,8 @@ int main()
     FAST;
     int tt;
     tt = 1;
-    // cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

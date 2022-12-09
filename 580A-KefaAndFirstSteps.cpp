@@ -24,47 +24,30 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
+const int N = 1e5 + 9;
+int v[N];
+int dp[N];
 
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    int n;
+    cin >> n;
+    rep1(i, n)
     {
-        q.push(s[i]);
+        cin >> v[i];
     }
-    while (!q.empty())
+    int ans = 0;
+    rep1(i, n)
     {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        if (v[i] >= v[i - 1])
         {
-            q.pop();
-            continue;
+            dp[i] = dp[i - 1] + 1;
         }
-        else if (q.si)
-        cout << x;
+        else
+            dp[i] = 1;
+        ans = max(ans, dp[i]);
     }
+    cout << ans << endl;
 }
 
 int main()

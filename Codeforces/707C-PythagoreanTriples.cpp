@@ -25,45 +25,27 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    ll n, a, b;
+    cin >> n;
+    if (n <= 2)
     {
-        q.push(s[i]);
+        cout << -1 << endl;
     }
-    while (!q.empty())
+    else
     {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        if (n & 1)
         {
-            q.pop();
-            continue;
+            a = (n * n - 1) / 2;
+            b = a + 1;
         }
-        else if (q.si)
-        cout << x;
+        else
+        {
+            a = (n * n) / 4 - 1;
+            b = a + 2;
+        }
+        cout << a << " " << b << endl;
     }
 }
 
@@ -71,8 +53,8 @@ int main()
 {
     FAST;
     int tt;
-    tt = 1;
-    // cin >> tt;
+     tt = 1;
+    //cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

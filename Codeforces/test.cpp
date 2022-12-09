@@ -33,6 +33,8 @@ int cost[N];
 bool f = true;
 int l, r, x;
 
+const int mod = 100;
+
 int bfs(int x, int y)
 {
 
@@ -71,63 +73,25 @@ int bfs(int x, int y)
 }
 void solve()
 {
-    ll l, r, x, a, b;
-    cin >> l >> r >> x >> a >> b;
-    if (a == b)
+    long double a, b, c, d;
+    cin >> a >> b >> c >> d;
+    long double x = b / 1000000000000;
+    long double y = d / 1000000000000;
+    if (pow(a, x) > pow(c, y))
     {
-        cout << 0 << endl;
-        return;
-    }
-    if (b <= l && b >= r)
-    {
-        cout << -1 << endl;
-    }
-    ll s1 = a + x;
-    ll s2 = a - x;
-    ll s3 = b + x;
-    ll s4 = b - l;
-    if (a < b)
-    {
-
-        if (s1 == b || s1 < b)
-        {
-            cout << 1 << endl;
-        }
-        else if (s3 <= r || s2 >= l)
-        {
-            cout << 2 << endl;
-        }
-        else if (s4 >= x && s1 <= r)
-        {
-            cout << 3 << endl;
-        }
-        else
-            cout << -1 << endl;
-        return;
-    }
-    if (s2 == b || s2 > b)
-    {
-        cout << 1 << endl;
-    }
-    else if (b - x >= l || s1 <= r)
-    {
-        cout << 2 << endl;
-    }
-    else if (r - b >= x && s2 >= l)
-    {
-        cout << 3 << endl;
+        cout << "YES" << endl;
     }
     else
-        cout << -1 << endl;
+        cout << "NO" << endl;
 }
 int main()
 {
     FAST;
     int tt;
     tt = 1;
-    cin >> tt;
-    //     for(int i = 1; i<=tt; i++)
-    // cin.ignore();
+    // cin >> tt;
+    //      for(int i = 1; i<=tt; i++)
+    //  cin.ignore();
     while (tt--)
     {
         solve();

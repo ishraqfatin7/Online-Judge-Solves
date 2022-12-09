@@ -25,54 +25,37 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    int n;
+    cin >> n;
+    vi v(2*n+1);
+    vi even, odd;
+    rep1(i, 2 * n)
     {
-        q.push(s[i]);
-    }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        cin >> v[i];
+        if (v[i] & 1)
         {
-            q.pop();
-            continue;
+            odd.pb(i);
         }
-        else if (q.si)
-        cout << x;
+        else
+            even.pb(i);
     }
+    vector<pii> ans;
+    for (int i = 0; i + 1 < odd.size(); i += 2)
+        ans.push_back({odd[i], odd[i + 1]});
+    for (int i = 0; i + 1 < even.size(); i += 2)
+        ans.push_back({even[i], even[i + 1]});
+    for (int i = 0; i < n - 1; i++)
+        cout << ans[i].first << " " << ans[i].second << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    tt = 1;
-    // cin >> tt;
+    // tt = 1;
+    cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

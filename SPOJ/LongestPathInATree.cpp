@@ -25,46 +25,46 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-bool check(int x, vi vis)
+const int N = 1e5 + 9;
+vi adj[N];
+bool vis[N];
+int mx, mxNode;
+void dfs(int u, int d)
 {
-    if (x == 0)
+    vis[u] = true;
+    if (d > mx)
     {
-        if (vis[x] == 0)
-            return true;
-        return false;
+        mx = d;
+        mxNode = u;
     }
-    while (x)
+    for (auto v : adj[u])
     {
-        if (vis[x % 10] == 1)
+        if (!vis[v])
         {
-            return false;
+
+            dfs(v, d + 1);
         }
-        x /= 10;
     }
-    return true;
 }
 
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    int n;
+    cin >> n;
+    rep1(i, n - 1)
     {
-        q.push(s[i]);
+        int u, v;
+        cin >> u >> v;
+        adj[u].pb(v);
+        adj[v].pb(u);
     }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
-        {
-            q.pop();
-            continue;
-        }
-        else if (q.si)
-        cout << x;
-    }
+    dfs(1, 0);
+    mx = 0;
+    CLEAR(vis, 0);
+    dfs(mxNode, 0);
+
+    // int mx = *max_element(par, par + n);
+    cout << mx << endl;
 }
 
 int main()
@@ -73,7 +73,7 @@ int main()
     int tt;
     tt = 1;
     // cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

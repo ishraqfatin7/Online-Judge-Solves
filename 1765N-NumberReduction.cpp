@@ -25,45 +25,49 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    map<char, int> m;
+    char ch = 'a';
+    rep(i, 26)
     {
-        q.push(s[i]);
+        m[ch++] = 0;
     }
-    while (!q.empty())
+    string s;
+    getline(cin, s);
+
+    // cout << s <<endl;
+    transform(s.begin(), s.end(), s.begin(), ::tolower);
+    string k = "";
+    rep(i, s.size())
     {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        if (s[i] >= 'a' && s[i] <= 'z')
         {
-            q.pop();
-            continue;
+            k += s[i];
         }
-        else if (q.si)
-        cout << x;
+    }
+    // cout << k <<endl;
+    set<char> st;
+    rep(i, k.size())
+    {
+        st.insert(k[i]);
+        m[k[i]] = 1;
+    }
+    if (st.size() == 26)
+    {
+        cout << "pangram" << endl;
+    }
+    else
+    {
+        cout << "missing ";
+        for (auto x : m)
+        {
+            if (x.second == 0)
+            {
+                cout << x.first;
+            }
+        }
+        cout << endl;
     }
 }
 
@@ -71,8 +75,9 @@ int main()
 {
     FAST;
     int tt;
-    tt = 1;
-    // cin >> tt;
+    // tt = 1;
+    cin >> tt;
+    cin.ignore();
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

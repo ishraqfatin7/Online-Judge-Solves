@@ -24,47 +24,34 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
+const int N = 120001;
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    int n;
+    cin >> n;
+    vi v(n);
+    multiset<int> s;
+    rep(i, n)
     {
-        q.push(s[i]);
+        cin >> v[i];
+        s.insert(v[i]);
     }
-    while (!q.empty())
+    int cnt = 0;
+    rep(i, n)
     {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        s.erase(s.find(v[i]));
+        for (int j = 0; j < 31; j++)
         {
-            q.pop();
-            continue;
+            int x = (1 << j)-v[i];
+            if (s.find(x) != s.end())
+            {
+                cnt++;
+                break;
+            }
         }
-        else if (q.si)
-        cout << x;
+        s.insert(v[i]);
     }
+    cout << n-cnt<<endl;
 }
 
 int main()
@@ -72,7 +59,7 @@ int main()
     FAST;
     int tt;
     tt = 1;
-    // cin >> tt;
+    //    cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

@@ -25,54 +25,68 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-bool check(int x, vi vis)
-{
-    if (x == 0)
-    {
-        if (vis[x] == 0)
-            return true;
-        return false;
-    }
-    while (x)
-    {
-        if (vis[x % 10] == 1)
-        {
-            return false;
-        }
-        x /= 10;
-    }
-    return true;
-}
-
 void solve()
 {
-    string s;
-    cin >> s;
-    queue<char> q;
-    rrep(i, s.size())
+    string a, s;
+    cin >> a >> s;
+    ll last = 0;
+    vector<ll> b;
+    bool f = 0;
+    while (s.size())
     {
-        q.push(s[i]);
-    }
-    while (!q.empty())
-    {
-        char x = q.front();
-        q.pop();
-        if (x == 'B' && q.front()!='B')
+        ll last = 0;
+        if (a.size())
         {
-            q.pop();
-            continue;
+            last = a.back() - '0';
+            a.pop_back();
         }
-        else if (q.si)
-        cout << x;
+        ll last2 = s.back() - '0';
+        s.pop_back();
+        if (last2 < last)
+        {
+            if (s.size() == 0)
+            {
+                f = 1;
+                break;
+            }
+            last2 += (s.back() - '0') * 10;
+            s.pop_back();
+        }
+        if (last2 - last > 9)
+        {
+            f = 1;
+            break;
+        }
+        if (last2 < last)
+        {
+            f = 1;
+            break;
+        }
+        b.pb(last2 - last);
+    }
+    while (b.size() > 1 && b.back() == 0)
+        b.pop_back();
+    reverse(b.begin(), b.end());
+
+    if (f)
+        cout << "-1\n";
+    else if (a.size())
+        cout << "-1\n";
+    else
+    {
+        for (auto x : b)
+        {
+            cout << x;
+        }
+        cout << '\n';
     }
 }
-
 int main()
 {
     FAST;
     int tt;
-    tt = 1;
-    // cin >> tt;
+    // tt = 1;
+    cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {
