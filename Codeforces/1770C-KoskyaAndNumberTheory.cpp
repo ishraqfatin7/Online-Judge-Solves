@@ -24,40 +24,66 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
+ll GCD(ll n, ll k)
+{
+    if (k == 1)
+    {
+        return true;
+    }
+    ll x = __gcd(n, k);
+    if (x == 1)
+    {
+        return false;
+    }
+    return GCD(n, k / x);
+}
+
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    vll v(n + 1);
+    set<ll> s;
+    rep1(i, n)
     {
-        total_or |= A[i];
+        cin >> v[i];
+        s.insert(v[i]);
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    bool f = (s.size() == n);
+    for (int k = 2; k <= n; k++)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        bool ok = false;
+        for (int x = 1; x <= k; x++)
         {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
+            vector<int> cnt(k, 0);
+            for (int i = 1; i <= n; i++)
+            {
+                cnt[(v[i] + x) % k]++;
+            }
+            if (cnt[0] < 2)
+            {
+                ok = true;
+                break;
+            }
+                }
+        f &= ok;
     }
-    cout << max_length<<endl;
+    if (f)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

@@ -17,81 +17,42 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define CLEAR(a, x) memset(a, x, sizeof(a));
 #define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-// int dx[] = {1, 1, 0, -1, -1, -1, 0, 1}, dy[] = {0, 1, 1, 1, 0, -1, -1, -1};
-// int dx[] = {0, 0, -1, +1};
-// int dy[] = {+1, -1, 0, 0};
-int dx[] = {1, -1, 1, -1, 2, 2, -2, -2};
-int dy[] = {2, 2, -2, -2, 1, -1, 1, -1};
-const int N = 2001;
-vi adj[N];
-bool vis[N];
-int cost[N];
-bool f = true;
-int l, r, x;
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, 1, 0, -1};
 
-const int mod = 100;
-
-int bfs(int x, int y)
-{
-
-    vector<int> cost(N, -1);
-    queue<int> q;
-
-    q.push(x);
-    cost[x] = 0;
-
-    while (!q.empty())
-    {
-        x = q.front();
-        q.pop();
-
-        if (x == y)
-            return cost[x];
-
-        if (2 * x < N && cost[2 * x] == -1)
-        {
-            cost[2 * x] = 1 + cost[x];
-            q.push(2 * x);
-        }
-        if (x + 3 < N && cost[x + 3] == -1)
-        {
-            cost[x + 3] = 1 + cost[x];
-            q.push(x + 3);
-        }
-
-        if (x - 1 >= 0 && cost[x - 1] == -1)
-        {
-            cost[x - 1] = 1 + cost[x];
-            q.push(x - 1);
-        }
-    }
-    return cost[x];
-}
 void solve()
 {
-    long double a, b, c, d;
-    cin >> a >> b >> c >> d;
-    long double x = b / 1000000000000;
-    long double y = d / 1000000000000;
-    if (pow(a, x) > pow(c, y))
+    string s;
+    cin >> s;
+    unordered_map<char, int> m;
+    rep(i, s.size())
     {
-        cout << "YES" << endl;
+        if (s[i] == 'e')
+        {
+            m['e']++;
+        }
     }
-    else
-        cout << "NO" << endl;
+    cout << 'h';
+    int cnt = m['e'] * 2;
+    rep(i, cnt)
+    {
+        cout << 'e';
+    }
+    cout << 'y' << endl;
 }
+
 int main()
 {
     FAST;
     int tt;
     tt = 1;
     // cin >> tt;
-    //      for(int i = 1; i<=tt; i++)
-    //  cin.ignore();
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

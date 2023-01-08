@@ -24,40 +24,43 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
+ll lcm(ll a, ll b)
+{
+    return (a * b) / __gcd(a, b);
+}
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
-    {
-        total_or |= A[i];
+    int n, q;
+    cin >> n >> q;
+    vi v(n+1);
+    rep1(i, n) cin >> v[i];
+    vi pref(n+1), suff(n+1);
+    pref[1] = v[1];
+    suff[n] = v[n];
+    for(int i = 2; i<=n; i++)
+        pref[i] = __gcd(pref[i-1], v[i]);
+    for(int i = n-1; i>=1; i--){
+        suff[i] = __gcd(suff[i+1], v[i]);
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
+    while(q--){
+        int l, r;
+        cin >> l >> r;
+        if(l == 1)
+            cout << suff[r+1] << endl;
+        else if(r == n)
+            cout << pref[l-1] << endl;
+        else
+            cout << __gcd(pref[l-1], suff[r+1]) << endl;
     }
-    cout << max_length<<endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

@@ -24,40 +24,31 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
+int dfs(int n, int cnt)
+{
+    if (n == 1)
+        return cnt;
+    if (n % 6 == 0)
+        return dfs(n / 6, cnt + 1);
+    if ((2 * n) % 6 == 0)
+        return dfs(2*n, cnt + 1); 
+    return -1;
+}
+
 void solve()
 {
     int n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
-    {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
-    }
-    cout << max_length<<endl;
+    int ans = dfs(n, 0);
+    cout << ans << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

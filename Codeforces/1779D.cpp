@@ -24,40 +24,68 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    vll a(n), b(n);
+    rep(i, n) cin >> a[i];
+    rep(i, n) cin >> b[i];
+    ll m;
+    cin >> m;
+    multiset<ll> raz;
+    set<ll> s;
+    rep(i, m)
     {
-        total_or |= A[i];
+        ll x;
+        cin >> x;
+        raz.insert(x);
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    bool ok = true;
+    rep(i, n)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        if (b[i] > a[i])
         {
-            left_or |= A[i];
+            ok = false;
+            break;
         }
-        if (left_or == total_or)
+        ll x = *s.begin();
+        while (s.size() and x < b[i])
         {
-            max_length = max(max_length, r - l + 1);
+            s.erase(s.begin());
+            x = *s.begin();
+        }
+        if (a[i] != b[i])
+        {
+            if (!s.count(b[i]))
+            {
+                if (raz.find(b[i]) == raz.end())
+                {
+                    ok = false;
+                    break;
+                }
+
+                raz.erase(raz.find(b[i]));
+                s.insert(b[i]);
+            }
         }
     }
-    cout << max_length<<endl;
+    if (ok)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

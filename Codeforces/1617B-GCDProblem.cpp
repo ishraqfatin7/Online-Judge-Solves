@@ -24,40 +24,28 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    if (n % 2 == 0)
+        cout << "2 " << (n - 1) - 2 << " 1\n";
+    else
     {
-        total_or |= A[i];
+        ll x = (n - 1) / 2;
+        if (x % 2 == 0)
+            cout << x - 1 << " " << x + 1 << " " << 1 << endl;
+        else
+            cout << x - 2 << " " << x + 2 << " " << 1 << endl;
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
-    }
-    cout << max_length<<endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

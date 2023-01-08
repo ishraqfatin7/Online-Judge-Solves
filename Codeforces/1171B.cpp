@@ -4,6 +4,7 @@ using ll = long long;
 using ull = unsigned long long;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
+using pcc = pair<char, char>;
 using vi = vector<int>;
 using vll = vector<ll>;
 #define F first
@@ -24,40 +25,52 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int N = 1e7 + 9;
+int spf[N];
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    int x, y;
+    int d = y - x;
+    vector<int> ans;
+    while (d > 1)
     {
-        total_or |= A[i];
+        ans.push_back(spf[d]);
+        d /= spf[d];
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    sort(all(ans));
+    int res = 0;
+    bool ok = false;
+    for (auto i : ans)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
+        if (__gcd(x + i, d) == 1)
+        {   ok = true; 
+            res++; 
         }
     }
-    cout << max_length<<endl;
+    if (!ok)
+    {
+        cout << -1 << endl;
+        return;
+    }
+    cout << res << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
+    for (int i = 2; i < N; i++)
+    {
+        spf[i] = i;
+    }
+    for (int i = 2; i < N; i++)
+    {
+        for (int j = i; j < N; j += i)
+        {
+            spf[j] = min(spf[j], i);
+        }
+    }
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

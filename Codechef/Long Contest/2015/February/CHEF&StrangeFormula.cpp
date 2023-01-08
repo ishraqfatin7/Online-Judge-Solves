@@ -24,41 +24,62 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int N = 1e7 + 5;
+ll fact[N];
+
+void modfact(ll n, ll m)
+{
+    fact[0] = 1;
+    rep1(i, m)
+    {
+        fact[i] = fact[i - 1] * i % m;
+    }
+}
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    ll n, m;
+    cin >> n >> m;
+    vll v(n + 1);
+    rep(i, n)
     {
-        total_or |= A[i];
+        cin >> v[i];
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    modfact(n, m);
+    ll ans = 0;
+    rep(i, n)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        ll x = v[i];
+        ll part1 = 0;
+        if (x + 1 < m)
         {
-            left_or |= A[i];
+            part1 = fact[x + 1];
         }
-        if (left_or == total_or)
+        ll y = x;
+        ll z = x + 1;
+        if (y % 2 == 0)
         {
-            max_length = max(max_length, r - l + 1);
+            y /= 2;
         }
+        else
+        {
+            z /= 2;
+        }
+        ll part2 = (x % m) * ((y % m) * (z % m) % m) % m;
+
+        ll current = (part1 + part2 + m - 1) % m;
+
+        ans = (ans + current) % m;
     }
-    cout << max_length<<endl;
+    cout << ans << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
-    cin >> tt;
+    tt = 1;
+    // cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

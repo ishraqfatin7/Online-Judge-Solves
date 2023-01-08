@@ -24,40 +24,41 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    ll n, m, a, b, c, d;
+    cin >> n >> m >> a >> b >> c >> d;
+    ll vis1[n + 1] = {0}, vis2[m + 1] = {0};
+    ll ans = 0;
+    ll dr = 1, dc = 1;
+    rep(i, n)
     {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        rep(j, m)
         {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
+            vis1[a] = 1;
+            vis2[b] = 1;
+            if (vis1[c] == 1 || vis2[d] == 1)
+            {
+                break;
+            }
+            ans++;
+            if (a + dr > n || a + dr < 1)
+                dr *= -1;
+            if (b + dc > m || b + dc < 1)
+                dc *= -1;
+            a += dr;
+            b += dc;
         }
     }
-    cout << max_length<<endl;
+    cout << ans << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

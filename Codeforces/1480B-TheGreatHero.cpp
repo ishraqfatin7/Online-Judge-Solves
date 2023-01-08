@@ -24,40 +24,39 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
-    {
-        total_or |= A[i];
-    }
+    ll a, b, n;
+    cin >> a >> b >> n;
+    vector<pll> v(n);
+    rep(i, n) cin >> v[i].first;
+    rep(i, n) cin >> v[i].second;
 
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    ll tot = 0;
+    ll mx = 0;
+    rep(i, n)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        int cnt = v[i].S / a;
+        if (v[i].S % a)
         {
-            left_or |= A[i];
+            cnt++;
         }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
+        tot += cnt * v[i].first;
+        mx = max(mx, v[i].first);
     }
-    cout << max_length<<endl;
+    if(b>(tot-mx)){
+        cout <<"YES"<<endl;
+        return; 
+    }
+    cout << "NO" << endl;
 }
 
-int main()
+int32_t main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

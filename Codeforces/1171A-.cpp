@@ -24,40 +24,36 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    vll v(n);
+    unordered_map<ll, ll> m;
+    set<int> s;
+    rep(i, n)
     {
-        total_or |= A[i];
+        cin >> v[i];
+        m[v[i]]++;
+        s.insert(v[i]);
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    sort(all(v));
+    ll mn = m[v[0]];
+    ll mx = m[v[n - 1]];
+    if (s.size() == 1)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
+        cout << n * (n - 1) << endl;
+        return;
     }
-    cout << max_length<<endl;
+    cout << 2 * (mn * mx) << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

@@ -24,40 +24,65 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+struct cmp
+{
+    bool operator()(const pair<int, int> &a, const pair<int, int> &b) const
+    {
+        return a.first > b.first;
+    }
+};
+// bool comp(const pair<int, int> &a, const pair<int, int> &b) 
+// {
+//     return a.first > b.first;
+// }
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    int n, k;
+    cin >> n >> k;
+    vector<pii> v(n);
+    priority_queue<pii, vector<pii>, cmp> pq;
+    priority_queue<int> health;
+    rep(i, n)
     {
-        total_or |= A[i];
+        cin >> v[i].F;
+        health.push(v[i].F);
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    rep(i, n)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
+        cin >> v[i].S;
     }
-    cout << max_length<<endl;
+     //sort(all(v),comp());
+    rep(i, n)
+    {
+        pq.push({v[i].S, v[i].F});
+    }
+    int mx = k;
+    while (pq.size() && k > 0)
+    {
+        if(pq.size()){
+            while (pq.size() && mx >= pq.top().second)
+            {
+                pq.pop();
+            }
+        }
+        k -= pq.top().first;
+        mx += k;
+    }
+    if (!pq.size())
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

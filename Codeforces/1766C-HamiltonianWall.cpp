@@ -24,40 +24,47 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+int n;
+const int M = 2e5 + 9;
+string grid[2];
+bool vis[2][M];
+bool dfs(int x, int y)
+{
+    vis[x][y] = true;
+    if (y == n)
+        return true;
+    if (grid[x][y] == 'W')
+        return false;
+    if (grid[!x][y] == 'B' && !vis[!x][y])
+        return dfs(!x, y);
+    if (grid[x][y + 1] == 'W')
+        return false;
+    return dfs(x, y + 1);
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
-    {
-        total_or |= A[i];
-    }
 
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    cin >> n >> grid[0] >> grid[1];
+    CLEAR(vis, false);
+    if (dfs(0, 0))
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
+        cout << "YES" << endl;
+        return;
     }
-    cout << max_length<<endl;
+    CLEAR(vis, false);
+    if (dfs(1, 0))
+    {
+        cout << "YES" << endl;
+        return;
+    }
+    cout << "NO" << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

@@ -24,40 +24,47 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int MOD = 1e9 + 7;
+int max_demodogs(int n)
+{
+    return (n * n * (n + 1) * (n + 1)) / 4;
+}
+
+
+ll modularexpo(ll a, ll b)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+        {
+            res = (res * a) % MOD;
+        }
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+    return res;
+}
+
 void solve()
 {
-    int n;
+
+    ll n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
-    {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
-    }
-    cout << max_length<<endl;
+    ll n1 = n * (n + 1) % MOD * (2 * n + 1) % MOD;
+    n1 *= modularexpo(6, MOD - 2) % MOD;
+    ll n2 = (n - 1) * (n) % MOD * (n + 1) % MOD;
+    n2 *= modularexpo(3, MOD - 2) % MOD;
+    n1 = (n1 + n2) % MOD;
+    n1 = n1 * 2022 % MOD;
+    cout << n1 << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

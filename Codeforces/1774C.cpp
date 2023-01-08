@@ -24,40 +24,52 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+vector<int> count_winners(int n, string s)
+{
+    vector<int> winners;
+    for (int x = 2; x <= n; x++)
+    {
+        int count = 0;
+        for (int i = 0; i < x - 1; i++)
+        {
+            if (s[i] == '1')
+            {
+                count++;
+            }
+        }
+        winners.push_back(count + 1);
+    }
+    return winners;
+}
 void solve()
 {
     int n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    string s;
+    cin >> s;
+    char first = s[0];
+    int curr = 1;
+    rep(i, n - 1)
     {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        if (first == s[i])
         {
-            left_or |= A[i];
+            cout << curr << ' ';
         }
-        if (left_or == total_or)
+        else
         {
-            max_length = max(max_length, r - l + 1);
+            first = s[i];
+            curr = i + 1;
+            cout << curr << ' ';
         }
     }
-    cout << max_length<<endl;
+    cout << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

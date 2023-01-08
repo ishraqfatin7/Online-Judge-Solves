@@ -24,42 +24,65 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    int a, b, x;
+    cin >> a >> b >> x;
+    int n = a + b;
+    char prev = '0';
+    string ans = "0";
+    rep(i, x)
     {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        if (prev == '0')
         {
-            left_or |= A[i];
+            ans.pb('1');
+            prev = '1';
+            a--;
         }
-        if (left_or == total_or)
+        else
         {
-            max_length = max(max_length, r - l + 1);
+            ans.pb('0');
+            prev = '0';
+            b--;
         }
     }
-    cout << max_length<<endl;
+    if (prev == '0')
+    {
+        while (a--)
+        {
+            ans.pb('0');
+            a--;
+        }
+        while (b--)
+        {
+            ans.pb('1');
+            b--;
+        }
+    }
+    else
+    {
+        while (b--)
+        {
+            ans.pb('1');
+            b--;
+        }
+        while (a--)
+        {
+            ans.pb('0');
+            a--;
+        }
+    }
+    cout << ans << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

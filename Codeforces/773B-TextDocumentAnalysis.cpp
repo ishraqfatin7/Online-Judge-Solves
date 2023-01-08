@@ -24,41 +24,58 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
     int n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    string s;
+    cin >> s;
+    string s1 = "";
+    priority_queue<int> pq;
+    map<string, int> m;
+    rep(i, n)
     {
-        total_or |= A[i];
+        if (s[i] == '_')
+        {
+            pq.push(s1.size());
+            s1 = "";
+        }
+        else if (s[i] == '(')
+        {
+            i++;
+            m[s1]++;
+            s1 = "";
+            if (s[i] == ')')
+            {
+                m[s1]++;
+                s1 = "";
+            }
+            while (s[i] != ')')
+            {
+                if (s[i] == '_')
+                {
+                    m[s1]++;
+                    s1 = "";
+                }
+                else
+                    s1 += s[i];
+                i++;
+            }
+                }
+        else
+            s1 += s[i];
     }
 
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
-    }
-    cout << max_length<<endl;
+    cout << pq.top() << ' ' << m.size() << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
-    cin >> tt;
+    tt = 1;
+    // cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

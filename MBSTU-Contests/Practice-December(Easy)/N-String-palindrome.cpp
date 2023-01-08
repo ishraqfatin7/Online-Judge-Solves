@@ -24,42 +24,50 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    string s;
+    cin >> s;
+    int n = s.size();
+    string s1 = s;
+    string s2, s3;
+    reverse(all(s1));
+    int x = (n - 1) / 2;
+    int y = (n + 3) / 2 - 1;
+    bool f = true;
+    if (s != s1)
     {
-        total_or |= A[i];
+        f = false;
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    s2 = s.substr(0, x);
+    s3 = s2;
+    reverse(all(s3));
+    if (s2 != s3)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
+        f = false;
     }
-    cout << max_length<<endl;
+    string s4, s5;
+    s4 = s.substr(y);
+    s5 = s4;
+    reverse(all(s5));
+    if (s4 != s5)
+    {
+        f = false;
+    }
+    if (f)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

@@ -24,41 +24,59 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
+vi ans[20];
+
 void solve()
 {
+    ans[2].pb(2);
+    ans[3].pb(3);
+    ans[5].pb(5);
+    ans[7].pb(7);
+    ans[4].pb(2);
+    ans[4].pb(2);
+    ans[4].pb(3);
+    ans[6].pb(3);
+    ans[6].pb(5);
+    ans[8].pb(2);
+    ans[8].pb(2);
+    ans[8].pb(2);
+    ans[8].pb(7);
+    ans[9].pb(2);
+    ans[9].pb(3);
+    ans[9].pb(3);
+    ans[9].pb(7);
+    vi v;
     int n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    string s;
+    cin >> s;
+    rep(i, n)
     {
-        total_or |= A[i];
-    }
+        int x = s[i] - '0';
+        if (x < 2)
+            continue;
 
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        for (auto y : ans[x])
         {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
+            v.pb(y);
         }
     }
-    cout << max_length<<endl;
+    sort(all(v));
+    reverse(all(v));
+    for (auto x : v)
+    {
+        cout << x;
+    }
+    cout << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
-    cin >> tt;
+    tt = 1;
+    // cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

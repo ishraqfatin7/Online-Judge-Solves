@@ -24,40 +24,52 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
+ll lcm(ll a, ll b)
+{
+    return a * b / __gcd(a, b);
+}
+
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    vll divs;
+    for (ll i = 2; i * i <= n; i++)
     {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        if (n % i == 0)
         {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
+            divs.pb(i);
+            if (i != n / i)
+                divs.pb(n / i);
         }
     }
-    cout << max_length<<endl;
+    if (divs.size() == 0)
+    {
+        cout << 1 << " " << n - 1 << endl;
+        return;
+    }
+    // divs.pb(n);
+    //  ll ans = n;
+    ll mn = INT_MAX;
+    pii ans = {0, 0};
+    for (auto x : divs)
+    {
+        if (lcm(x, n - x) < mn)
+        {
+            mn = lcm(x, n - x);
+            ans = {x, n - x};
+        }
+    }
+    // cout << ans << endl;
+    cout << ans.F << " " << ans.S << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

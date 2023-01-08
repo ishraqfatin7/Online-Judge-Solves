@@ -24,42 +24,48 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+ll n;
+ll smallestprimefactor(ll n)
+{
+    if (n % 2 == 0)
+        return 2;
+    for (ll i = 3; i * i <= n; i += 2)
+    {
+        if (n % i == 0)
+            return i;
+    }
+    return n;
+}
+
+ll dfs(ll cnt)
+{
+    // cout << n << " " << cnt << endl;
+    if (n == 0)
+        return cnt;
+    ll x = smallestprimefactor(n);
+    if (n % 2 == 0)
+    {
+        return cnt;
+    }
+    n -= x;
+    return dfs(cnt + 1);
+}
+
 void solve()
 {
-    int n;
+
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
-    {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
-    }
-    cout << max_length<<endl;
+    ll cnt = dfs(0);
+    cout << cnt + n / 2 << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

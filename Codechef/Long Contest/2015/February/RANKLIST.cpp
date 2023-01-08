@@ -24,40 +24,55 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
+ll computeSum(ll n)
+{
+    return n * (n + 1) / 2;
+}
+
+ll binarySearch(ll x)
+{
+    ll lo = 0;
+    ll hi = 10e9;
+    ll mid, ans = 0;
+    while (lo <= hi)
+    {
+        mid = (lo + hi) / 2;
+
+        ll sum = computeSum(mid);
+
+        if (sum <= x)
+        {
+            ans = mid;
+            lo = mid + 1;
+        }
+        else
+            hi = mid - 1;
+    }
+    return ans;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
-    {
-        total_or |= A[i];
-    }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
-    {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
-        {
-            left_or |= A[i];
+    ll n, s;
+    cin >> n >> s;
+    ll x = computeSum(n);
+    ll ans = 0; 
+    for(int i = n; i>0; i--){
+        if(x<=s){
+            break;
         }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
-        }
-    }
-    cout << max_length<<endl;
+        x-=i; 
+        s--; 
+        ans++;
+    } 
+    cout << ans << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
+    // tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

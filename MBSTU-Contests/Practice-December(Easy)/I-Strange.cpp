@@ -24,42 +24,54 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+
+const int N = 1e5 + 9;
+
 void solve()
 {
     int n;
     cin >> n;
-    vi A(n);
-    rep(i, n) cin >> A[i];
-    int total_or = A[0];
-    for (int i = 1; i < A.size(); i++)
+    ll p = 0;
+    int cnt = 0;
+    int a[n + 1];
+    iota(a, a + n + 1, 0);
+    vi v;
+    v.pb(1);
+    for (ll i = 1; p <= N; i++)
     {
-        total_or |= A[i];
+        p = pow(9, i);
+        v.pb(p);
+       // cnt++;
     }
-
-
-    int max_length = 0;
-    for (int l = 0, r = A.size() - 1; l <= r; l++, r--)
+    p = 0;
+    for (ll i = 1; p <= N; i++)
     {
-        int left_or = 0;
-        for (int i = l; i <= r; i++)
+        p = pow(6, i);
+        v.pb(p);
+        //cnt++;
+    }
+    sort(all(v));
+    for (int i = 1; i <= n; i++)
+    {
+        for (int x : v)
         {
-            left_or |= A[i];
-        }
-        if (left_or == total_or)
-        {
-            max_length = max(max_length, r - l + 1);
+            if (x > i)
+            {
+                break;
+            }
+            a[i] = min(a[i], a[i - x] + 1);
         }
     }
-    cout << max_length<<endl;
+    cout << a[n] << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tc = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    tt = 1;
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();
