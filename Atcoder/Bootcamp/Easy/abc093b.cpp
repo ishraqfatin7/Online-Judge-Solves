@@ -17,31 +17,33 @@ using vll = vector<ll>;
 #define rrep(i, n) for (int i = (n)-1; i >= 0; i--)
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
+#define CLEAR(a, x) memset(a, x, sizeof(a));
 #define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
-    int n;
-    cin >> n;
-    string s1,s2; cin >>s1>>s2;
-    
-    rep(i,n){
-        while(i<n&& s1[i]==1){
-            i++;
-            
-        }
-    } 
+    ll a, b, k;
+    cin >> a >> b >> k;
+    for (ll i = a; i <= min(a + k - 1, b); i++)
+        cout << i << endl;
+    for (ll i = max(a + k, b - k + 1); i <= b; i++)
+        cout << i << endl;
+    cout << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {

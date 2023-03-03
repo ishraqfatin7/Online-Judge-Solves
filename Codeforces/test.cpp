@@ -27,31 +27,44 @@ int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
-    string s;
-    cin >> s;
-    unordered_map<char, int> m;
-    rep(i, s.size())
+    ll n, x;
+    cin >> n >> x;
+    unordered_map<ll, ll> um, um1;
+    for (int i = 0; i < n; i++)
     {
-        if (s[i] == 'e')
+        ll k;
+        cin >> k;
+        um[k]++;
+        if (x != 0)
         {
-            m['e']++;
+            um[k ^ x]++;
+            um1[k ^ x]++;
         }
     }
-    cout << 'h';
-    int cnt = m['e'] * 2;
-    rep(i, cnt)
+    ll mx = 0, cnt = 0;
+    for (auto i : um)
     {
-        cout << 'e';
+        if (i.second > mx)
+        {
+            mx = i.second;
+            cnt = um1[i.first];
+        }
+        else if (i.second == mx)
+        {
+            cnt = min(cnt, um1[i.first]);
+        }
     }
-    cout << 'y' << endl;
+    cout << mx <<' '<< cnt <<endl;
 }
 
 int main()
 {
     FAST;
     int tt;
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     tt = 1;
-    // cin >> tt;
+    cin >> tt;
     //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {

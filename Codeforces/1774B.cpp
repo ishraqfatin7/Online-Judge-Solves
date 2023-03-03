@@ -27,31 +27,25 @@ int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
-    int n, m, k;
-    cin >> n >> m >> k;
+    ll n, m, k;
+   
 
-    int mx = INT_MIN;
-    rep(i, m)
+   
+    cin >> n >> m >> k;
+    ll a[m];
+    rep(i, m) cin >> a[i];
+    sort(a, a + m, greater<ll>());
+    for (ll i = 0; i < m; i++)
     {
-        int x;
-        cin >> x;
-        mx = max(mx,x);
-       // mx = max(mx, (x + k - 1) / k);
+        ll now = i + 1 + (a[i] - 1) * k;
+        if (now > n)
+        {
+            cout << "NO\n";
+            return;
+        }
     }
-    
-    if(k == mx){
-        cout << "NO" << endl;
-        return;
-    }
-    int totalpaint = (n + k - 1);
-    if (mx <= totalpaint / k )
-    {
-        cout << "YES" << endl;
-    }
-    else
-    {
-        cout << "NO" << endl;
-    }
+    cout << "YES\n";
+    return;
 }
 
 int main()

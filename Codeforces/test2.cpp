@@ -25,50 +25,41 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll lcm(ll a, ll b)
-{
-    return (a * b) / __gcd(a, b);
-}
+const int mod = 1e9 + 7;
 
-int toggle(int n, int k)
+ll fastExpo(ll a, ll b)
 {
-    return (n & (1 << k));
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+        {
+            res = (res * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    return res % mod;
 }
-
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    rep(i, n) cin >> v[i];
-    unordered_map<int, int> m;
-
-    rep(i, n)
+    int a, b;
+    cin >> a >> b;
+    if (a == 0 && b == 0)
     {
-        rep(j, 31)
-        {
-            if (toggle(v[i], j))
-            {
-                m[j]++;
-            }
-        }
+        cout << 1 << endl;
+        return;
     }
-    int cnt = 0;
-    rep(i, 31)
-    {
-        if (m[i] > 0 && m[i] < n)
-        {
-            cnt += (1 << i);
-        }
-    }
-    cout << cnt << endl;
+    cout << fastExpo(a, b) << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
-    // tt = 1;
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    tt = 1;
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
