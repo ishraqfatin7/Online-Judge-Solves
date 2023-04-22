@@ -24,38 +24,55 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int N = 2e5 + 5;
+int dp1[N], dp2[N];
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    int n;
+    cin >> n;
+    vi v(n);
+    rep(i, n)
+    {
+        cin >> v[i];
+    }
+    dp1[0] = 1;
+    rep1(i, n - 1)
+    {
+        if (v[i] > v[i - 1])
+        {
+            dp1[i] = dp1[i - 1] + 1;
+        }
+        else
+        {
+            dp1[i] = 1;
+        }
+    }
+    dp2[n - 1] = 1;
+    rrep(i, n - 1)
+    {
+        if (v[i] < v[i + 1])
+        {
+            dp2[i] = dp2[i + 1] + 1;
+        }
+        else
+        {
+            dp2[i] = 1;
+        }
+    }
+    int ans = 0;
+    rep(i, n)
+    {
+        ans = max(ans, dp1[i]);
+    }
+    rep(i, n - 1)
+    {
+        if (v[i] < v[i + 2])
+        {
+            ans = max(ans, dp1[i] + dp2[i + 2]);
+        }
+    }
+    cout << ans << endl;
 }
 
 int main()
@@ -65,8 +82,8 @@ int main()
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

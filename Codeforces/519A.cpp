@@ -25,37 +25,37 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    map<char, int> m;
+    m['Q'] = 9;
+    m['R'] = 5;
+    m['B'] = 3;
+    m['N'] = 3;
+    m['P'] = 1;
+    m['K'] = 0;
+    m['q'] = -9;
+    m['r'] = -5;
+    m['b'] = -3;
+    m['n'] = -3;
+    m['p'] = -1;
+    m['k'] = 0;
+    int ans = 0;
+    rep(i, 8)
+    {
+        string s;
+        cin >> s;
+        rep(j, 8)
+        {
+            ans += m[s[j]];
+        }
+    }
+    if (ans > 0)
+        cout << "White" << endl;
+    else if (ans < 0)
+        cout << "Black" << endl;
+    else
+        cout << "Draw" << endl;
 }
 
 int main()
@@ -64,8 +64,8 @@ int main()
     int tt;
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
-    tt = 1;
-    cin >> tt;
+    tt = 1; 
+    //cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

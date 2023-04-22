@@ -25,37 +25,48 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    int m, n;
+    cin >> m;
+    vector<vector<int>> v(m);
+    map<int, int> s;
+    vector<int> ans;
+    rep(i, m)
+    {
+        cin >> n;
+        rep(j, n)
+        {
+            int x;
+            cin >> x;
+            v[i].push_back(x);
+        }
+    }
+    int f = 0;
+    rrep(i, m)
+    {
+        int curr = -1;
+        for (auto x : v[i])
+        {
+            if (!s.count(x) and curr == -1)
+                curr = x;
+            s[x] = 1;
+        }
+        if (curr == -1)
+        {
+            f = 1;
+        }
+        ans.push_back(curr);
+    }
+    if (f)
+    {
+        cout << -1 << endl;
+        return;
+    }
+    reverse(all(ans));
+    for (auto x : ans)
+        cout << x << " ";
+    cout << endl;
 }
 
 int main()

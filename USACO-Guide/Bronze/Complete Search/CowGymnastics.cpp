@@ -25,37 +25,24 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
+set<int> s;
+void init()
+{
+    int n = 1e4;
+    int x = 1;
+    s.insert(0);
+    for (int i = 1; i <= n; i++)
+    {
+        s.insert(x);
+        x *= 3;
     }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
 }
+
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    int n;
+    cin >> n;
+    cout << *s.upper_bound(n) << endl;
 }
 
 int main()
@@ -65,6 +52,7 @@ int main()
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
+    init();
     cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)

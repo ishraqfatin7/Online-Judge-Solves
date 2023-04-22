@@ -18,44 +18,40 @@ using vll = vector<ll>;
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
 #define CLEAR(a, x) memset(a, x, sizeof(a));
-#define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    int n;
+    cin >> n;
+    vi v(n + 1, 0);
+    rep1(i, n)
+    {
+        cin >> v[i];
+        v[i] += v[i - 1];
+    }
+    ll l = 1, r = n, ans = 1;
+    while (l <= r)
+    {
+        ll mid = (l + r) >> 1;
+        cout << "? " << mid;
+        rep1(i, mid) cout << " " << i;
+        cout << endl;
+        ll q;
+        cin >> q;
+        if (q > v[mid])
+        {
+            ans = mid;
+            r = mid - 1;
+        }
+        else
+            l = mid + 1;
+    }
+    cout << "! " << ans << endl;
 }
 
 int main()

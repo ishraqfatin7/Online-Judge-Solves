@@ -27,6 +27,28 @@ int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
+    int n;
+    cin >> n;
+    vector<pair<int, string>> v;
+    for (int i = 0; i < 2 * n - 2; i++)
+    {
+        string s;
+        cin >> s;
+        v.pb({s.size(), s});
+    }
+    sort(all(v));
+    string last = v[v.size() - 1].S;
+    reverse(all(last));
+    string last1 = v[v.size() - 2].S;
+
+    if (v[0] == v[1] and last == last1)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 
 int main()

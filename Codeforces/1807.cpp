@@ -25,37 +25,39 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    ll n, q;
+    cin >> n >> q;
+    vll v(n);
+    ll tot = 0;
+    rep(i, n)
+    {
+        cin >> v[i];
+        tot += v[i];
+    }
+    vll pref(n + 1, 0);
+
+    rep(i, n)
+    {
+        pref[i + 1] = pref[i] + v[i];
+    }
+    while (q--)
+    {
+        int l, r, k;
+        cin >> l >> r >> k;
+        ll cnt = r - l + 1;
+        ll sum = tot - pref[r] + (cnt)*k;
+        sum += pref[l - 1];
+        if (sum & 1)
+        {
+            cout << "YES" << endl;
+        }
+        else
+        {
+            cout << "NO" << endl;
+        }
+    }
 }
 
 int main()

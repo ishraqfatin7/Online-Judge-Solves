@@ -18,45 +18,53 @@ using vll = vector<ll>;
 #define rrep1(i, n) for (int i = (n); i > 0; i--)
 #define all_bit(x) __builtin_popcount(x)
 #define CLEAR(a, x) memset(a, x, sizeof(a));
-#define endl '\n'
 #define FAST                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    int n;
+    cin >> n;
+    vll v(n);
+    ll sum = 0;
+    rep(i, n)
+    {
+        cin >> v[i];
+    }
+    vi pref(n + 1, 0);
+    rep(i, n)
+    {
+        pref[i + 1] = pref[i] + v[i];
+    }
+    bool f = false;
+    int lo = 1, hi = n, ans = 0;
+    while (lo <= hi)
+    {
+        int mid = (lo + hi) / 2;
+        int sum = pref[mid] - pref[lo - 1];
+        cout << "? " << mid - lo + 1 << " ";
+        for (int i = lo; i <= mid; i++)
+        {
+            cout << i + 1 << " ";
+        }
+        cout << endl;
+        int q; cin >>q; 
+        if (q == sum)
+        {
+            ans = mid;
+            lo = mid + 1;
+        }
+        else
+        {
+            hi = mid - 1;
+        }
+    }
+    cout << "! " << ans + 1 << endl;
 }
+// interactive problem https://codeforces.com/contest/1807/problem/E
 
 int main()
 {

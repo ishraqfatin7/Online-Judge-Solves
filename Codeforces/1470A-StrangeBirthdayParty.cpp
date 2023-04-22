@@ -25,37 +25,39 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    int n, m;
+    cin >> n >> m;
+    vi k(n + 1), c(m + 1);
+    rep1(i, n)
+    {
+        cin >> k[i];
+    }
+    rep1(i, m)
+    {
+        cin >> c[i];
+    }
+    sort(rall(k));
+    ll sum = 0;
+    ll ans = 0;
+    int ith = 0;
+    int rem = 0;
+    rep1(i, n)
+    {
+        ith = k[i];
+        int x = *lower_bound(c.begin() + i, c.end(), ith);
+
+        if (sum <= c[ith])
+        {
+            sum += x;
+        }
+        else
+        {
+            sum += c[ith];
+        }
+    }
+    cout << sum << ' ' << rem << endl;
 }
 
 int main()

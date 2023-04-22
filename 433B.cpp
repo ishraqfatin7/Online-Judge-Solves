@@ -25,37 +25,32 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    ll n;
+    cin >> n;
+    vll v(n);
+    rep(i, n) cin >> v[i];
+    vll pref(n + 1,0);
+    rep(i, n) pref[i + 1] = pref[i] + v[i];
+    sort(all(v));
+    vll pref2(n + 1,0);
+    rep(i, n) pref2[i + 1] = pref2[i] + v[i];
+    int q;
+    cin >> q;
+    while (q--)
+    {
+        int t, l, r;
+        cin >> t >> l >> r;
+        if (t == 1)
+        {
+            cout << pref[r] - pref[l - 1] << endl;
+        }
+        else
+        {
+            cout << pref2[r] - pref2[l - 1] << endl;
+        }
+    }
 }
 
 int main()
@@ -65,7 +60,7 @@ int main()
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

@@ -25,37 +25,28 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    ll n, x;
+    cin >> n >> x;
+    vll v(n);
+    rep(i, n) cin >> v[i];
+    sort(all(v), greater<ll>());
+    ll sum = 0;
+    ll ans = 0;
+    rep(i, n)
+    {
+        sum += v[i];
+        if (sum >= (i + 1) * x)
+        {
+            ans++;
+        }
+        else
+        {
+            break;
+        }
+    }
+    cout << ans << endl;
 }
 
 int main()

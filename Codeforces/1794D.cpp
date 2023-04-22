@@ -24,38 +24,55 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
+const ll mod = 998244353;
+ll fastExpo(ll a, ll b)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+        {
+            res = (res * a) % mod;
         }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
+        a = (a * a) % mod;
+        b >>= 1;
     }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
+    return res;
 }
+
+ll fact[1000001];
+ll factInv[1000001];
+void f()
+{
+
+    fact[0] = 1;
+    factInv[0] = 1;
+}
+
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    int n;
+    cin >> n;
+    vi prime(n + 1), power(n + 1);
+    unordered_map<ll, ll> m;
+    rep(i, n)
+    {
+        cin >> prime[i] >> power[i];
+    }
+
+    // prime subset iteration
+    ll ans = 0;
+    ll cnt = 0;
+    for (ll mask = 1; (mask < 1 << n); ++mask)
+    {
+        ll prod = 1;
+        for (ll i = 0; i < n; ++i)
+        {
+            if (mask & 1 << i)
+            {
+            }
+        }
+    }
 }
 
 int main()

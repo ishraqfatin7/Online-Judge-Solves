@@ -24,38 +24,32 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
-    }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
-}
+const int N = 1012;
+int v[N][N];
+int ans[N];
+int cnt[10];
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    ll n, m;
+    cin >> n >> m;
+    for (ll j = 0; j < n; j++)
+    {
+        string s;
+        cin >> s;
+        for (ll i = 0; i < m; i++)
+        {
+            v[i][s[i] - 'A']++;
+            ans[i] = max(ans[i], v[i][s[i] - 'A']);
+        }
+    }
+    ll sum = 0;
+    for (ll i = 0; i < m; i++)
+    {
+        ll num;
+        cin >> num;
+        sum += ans[i] * num;
+    }
+    cout << sum << endl;
 }
 
 int main()
@@ -65,7 +59,7 @@ int main()
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
-    cin >> tt;
+    // cin >> tt;
     // for(int i = 1; i<=tt; i++)
     while (tt--)
     {

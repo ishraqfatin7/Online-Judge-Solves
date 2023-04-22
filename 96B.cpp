@@ -25,48 +25,36 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
+set<ll> s;
+void dfs(ll x, int y, int z)
+{
+    if (x > 1e10)
+        return;
+    if (x and y == z)
+    {
+        s.insert(x);
     }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
+    dfs(x * 10 + 4, y + 1, z);
+    dfs(x * 10 + 7, y, z + 1);
 }
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    ll n;
+    cin >> n;
+    ll x = *s.lower_bound(n);
+    cout << x << endl;
 }
 
 int main()
 {
     FAST;
     int tt;
+    dfs(0, 0, 0);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
-    cin >> tt;
-    // for(int i = 1; i<=tt; i++)
+    // cin >> tt;
+    //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

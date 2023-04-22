@@ -25,37 +25,47 @@ using vll = vector<ll>;
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
-ll countMatchingCombinations(string s,string t){
-    //recursion 
-    if(s.size()==0){
-        return 1;
+ll find(ll a, ll b, ll c, vll &v)
+{
+    ll l = 0, r = v.size() - 1;
+    while (l <= r)
+    {
+        ll mid = (l + r) / 2;
+        if (b - 2 * sqrtl(a * c) < v[mid])
+            r = mid - 1;
+        else
+            l = mid + 1;
     }
-    if(t.size()==0){
-        return 0;
-    }
-    if(s[0]=='+'){
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s.substr(1),t);
-        }
-    }
-    else{
-        if(t[0]=='+'){
-            return countMatchingCombinations(s.substr(1),t.substr(1))+countMatchingCombinations(s,t.substr(1));
-        }
-        else{
-            return countMatchingCombinations(s.substr(1),t.substr(1));
-        }
-    }
-
+    return l;
 }
+
 void solve()
 {
-    string s1, s2;
-    cin >> s1 >> s2;
-    
+    ll n, m;
+    cin >> n >> m;
+    vll v(n);
+    rep(i, n) cin >> v[i];
+    sort(all(v));
+    rep(i, m)
+    {
+        ll a, b, c;
+        cin >> a >> b >> c;
+        if (c < 0)
+        {
+            cout << "NO" << endl;
+            continue;
+        }
+        ll pos = find(a, b, c, v);
+        ll x = b - 2 * sqrtl(a * c);
+        ll y = b + 2 * sqrtl(a * c);
+        if (pos < n and x < v[pos] and v[pos] < y)
+        {
+            cout << "YES" << endl;
+            cout << v[pos] << endl;
+        }
+        else
+            cout << "NO" << endl;
+    }
 }
 
 int main()
