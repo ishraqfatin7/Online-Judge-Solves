@@ -24,28 +24,29 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
-
+const int N = 1e6 + 1;
+int f[N];
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    ll x = n / m;
-    ll sum = 0;
-    for (int i = 1; i <= 10; i++)
-    {
 
-        ll curr = m * i;
-        sum += (curr % 10);
-    }
-    ll rep = x / 10;
-    ll rem = x % 10;
-    ll ans = rep * sum;
-    for (int i = 1; i <= rem; i++)
+    int n, k;
+    cin >> n >> k;
+   
+
+    cout << "YES" << endl;
+    vi ans(n, -1);
+
+    for (int i = 1; i < n and k > 0; i++)
     {
-        ll curr = m * i;
-        ans += (curr % 10);
+        if (ans[i - 1] * ans[i] == 1)
+        {
+            ans[i] = 1;
+            k--;
+        }
     }
-    cout << ans << endl;
+    for (auto x : ans)
+        cout << x << " ";
+    cout << endl;
 }
 
 int main()
@@ -55,9 +56,8 @@ int main()
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
-
     cin >> tt;
-    //  for(int i = 1; i<=tt; i++)
+    // for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

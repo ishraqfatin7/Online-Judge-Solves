@@ -26,26 +26,61 @@ int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 
 void solve()
-{
-    ll n, m;
-    cin >> n >> m;
-    ll x = n / m;
-    ll sum = 0;
-    for (int i = 1; i <= 10; i++)
-    {
 
-        ll curr = m * i;
-        sum += (curr % 10);
-    }
-    ll rep = x / 10;
-    ll rem = x % 10;
-    ll ans = rep * sum;
-    for (int i = 1; i <= rem; i++)
+{
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
+    
+    if (n & 1)
     {
-        ll curr = m * i;
-        ans += (curr % 10);
+        cout << -1 << endl;
+        return;
     }
-    cout << ans << endl;
+    ll k = n / 2;
+    unordered_map<ll, ll> m1, m2;
+    rep(i, n)
+    {
+        m1[s[i]]++;
+    }
+    rep(i, k)
+    {
+        if (s[i] == s[n - i - 1])
+        {
+            m2[s[i]]++;
+        }
+    }
+    ll cnt = 0, mx = 0;
+    for (auto x : m1)
+    {
+        mx = max(mx, x.S);
+    }
+    if (mx > k)
+    {
+        cout << -1 << endl;
+        return;
+    }
+    ll mx1 = 0;
+    for (auto x : m2)
+    {
+        mx1 = max(mx1, x.S);
+        cnt += x.S;
+    }
+    int rem = cnt - mx1;
+    if (mx1 > rem)
+    {
+        cout << mx1 << endl;
+        return;
+    }
+    if (cnt % 2 == 0)
+    {
+        cout << cnt / 2 << endl;
+    }
+    else
+    {
+        cout << cnt / 2 + 1 << endl;
+    }
 }
 
 int main()
@@ -55,9 +90,8 @@ int main()
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
-
     cin >> tt;
-    //  for(int i = 1; i<=tt; i++)
+    // for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();

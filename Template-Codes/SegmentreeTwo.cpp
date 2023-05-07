@@ -46,7 +46,7 @@ struct ST
         ll mid = (b + e) >> 1, l = n << 1, r = l | 1;
         build(l, b, mid);
         build(r, mid + 1, e);
-        t[n] = t[l] ^ t[r];
+        t[n] = min(t[l], t[r]);
     }
     void upd(int n, int b, int e, ll i, ll x)
     {
@@ -60,30 +60,24 @@ struct ST
         ll mid = (b + e) >> 1, l = n << 1, r = l | 1;
         upd(l, b, mid, i, x);
         upd(r, mid + 1, e, i, x);
-        t[n] = t[l] ^ t[r];
+        t[n] = min(t[l], t[r]);
     }
-    ll query(int n, int b, int e, ll i, ll j, ll k)
+    ll query(int n, int b, int e, ll i, ll j)
     {
         if (b > j || e < i)
-            return 0;
+            return inf;
         if (b >= i && e <= j)
             return t[n];
         ll mid = (b + e) >> 1, l = n << 1, r = l | 1;
-        ll L = query(l, b, mid, i, j, k);
-        ll R = query(r, mid + 1, e, i, j, k);
-        ll cnt = L ^ R;
-        ll ans = 0;
-        if (cnt == k)
-        {
-           ans = (j - i + 1) * (j - i) / 2;
-        }
-        return ans;
+        ll L = query(l, b, mid, i, j);
+        ll R = query(r, mid + 1, e, i, j);
+        return min(L, R);
     }
 } t;
 void solve()
 {
     ll n, m, k;
-    cin >> n >> m >> k;
+    cin >> n>>m;; 
     rep1(i, n)
     {
         cin >> arr[i];
@@ -94,7 +88,7 @@ void solve()
     {
         ll l, r;
         cin >> l >> r;
-        cout << t.query(1, 1, n, l, r, k) << endl;
+        cout <<t.query(1, 1, n, l, r) << endl;
     }
 }
 

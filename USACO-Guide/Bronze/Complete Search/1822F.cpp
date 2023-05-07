@@ -24,28 +24,27 @@ using vll = vector<ll>;
     cin.tie(0);
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
+const int N = 7 ;
+const int MOD = 1e9 + 7;
+int dp[N];
 
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    ll x = n / m;
-    ll sum = 0;
-    for (int i = 1; i <= 10; i++)
-    {
+    int x, y, n;
+    cin >> x >> y >> n;
+    dp[0] = x;
+    dp[1] = y;
+    dp[2] = y - x;
+    dp[3] = -x;
+    dp[4] = -y;
+    dp[5] = x - y;
+    n--; 
+    n %= 6;
+    if (dp[n] < 0)
+        dp[n] += MOD;
+    cout << dp[n] << endl;
 
-        ll curr = m * i;
-        sum += (curr % 10);
-    }
-    ll rep = x / 10;
-    ll rem = x % 10;
-    ll ans = rep * sum;
-    for (int i = 1; i <= rem; i++)
-    {
-        ll curr = m * i;
-        ans += (curr % 10);
-    }
-    cout << ans << endl;
+
 }
 
 int main()
@@ -56,7 +55,8 @@ int main()
     // freopen("output.txt", "w", stdout);
     tt = 1;
 
-    cin >> tt;
+    // cin >> tt;
+
     //  for(int i = 1; i<=tt; i++)
     while (tt--)
     {

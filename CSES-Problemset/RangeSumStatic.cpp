@@ -27,23 +27,20 @@ int dy[] = {0, 1, 0, -1};
 
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    ll x = n / m;
-    ll sum = 0;
-    for (int i = 1; i <= 10; i++)
+    ll a, b, c;
+    cin >> a >> b >> c;
+    ll ans = 0;
+    for (int i = 0; i < (1 << c); i++)
     {
+        for (int j = 0; j < c; j++)
+        {
+            if (i & (1 << j) == (a & (1 << j)) and (b & (1 << j)) == (a & (1 << j)))
+            {
+                ans = i; 
+                
 
-        ll curr = m * i;
-        sum += (curr % 10);
-    }
-    ll rep = x / 10;
-    ll rem = x % 10;
-    ll ans = rep * sum;
-    for (int i = 1; i <= rem; i++)
-    {
-        ll curr = m * i;
-        ans += (curr % 10);
+            }
+        }
     }
     cout << ans << endl;
 }
@@ -55,9 +52,8 @@ int main()
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     tt = 1;
-
     cin >> tt;
-    //  for(int i = 1; i<=tt; i++)
+    // for(int i = 1; i<=tt; i++)
     while (tt--)
     {
         solve();
